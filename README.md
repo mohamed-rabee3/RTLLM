@@ -46,9 +46,10 @@ RTL Generation with Large Language Model Benchmark for generating design RTL wit
 
 2. Testbench (**testbench.v**): 
 
-    This file contains the testbench code used to simulate and test the design on Synopsys VCS.
+    This file contains the testbench code used to simulate and test the design with AMD Vivado XSim.
    ```
-   vcs testbench.v ../*.v
+   make vcs
+   make sim
    ```
 
 3. Designer RTL (**verified_verilog.v**): 
@@ -70,12 +71,13 @@ Step 1. Replace #DESIGN_NAME# with the design name you need to test.
 ```
 TEST_DESIGN = #DESIGN_NAME#
 ```
-Step 2. Compile the Verilog file.
+Step 2. Compile the Verilog file with Vivado XSim (`xvlog`).
 
 ```
 make vcs
 ```
-Step 3. Functionality test
+Step 3. Elaborate and run the functionality test (`xelab` + `xsim`).
+
 ```
 make sim
 ```
