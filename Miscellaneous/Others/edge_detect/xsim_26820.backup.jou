@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Jun 15 19:06:48 2026
-# Process ID         : 33624
+# Start of session at: Mon Jun 15 21:13:18 2026
+# Process ID         : 26820
 # Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/edge_detect
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
 # Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/edge_detect/xsim.log
@@ -17,15 +17,9 @@
 # CPU Physical cores : 14
 # CPU Logical cores  : 28
 # Host memory        : 17082 MB
-# Swap memory        : 25506 MB
-# Total Virtual      : 42589 MB
-# Available Virtual  : 5425 MB
+# Swap memory        : 28328 MB
+# Total Virtual      : 45410 MB
+# Available Virtual  : 6728 MB
 #-----------------------------------------------------------
 source xsim.dir/rtllm_snap/xsim_script.tcl
-# xsim {rtllm_snap} -autoloadwcfg -runall
-Time resolution is 1 ps
 run -all
-===========Your Design Passed===========
-$finish called at time : 85 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/edge_detect/testbench.v" Line 67
-exit
-INFO: [Common 17-206] Exiting xsim at Mon Jun 15 19:06:50 2026...

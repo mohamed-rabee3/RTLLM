@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Jun 15 21:13:29 2026
-# Process ID         : 33452
+# Start of session at: Tue Jun 16 00:01:35 2026
+# Process ID         : 27824
 # Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/pulse_detect
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
 # Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/pulse_detect/xsim.log
@@ -17,9 +17,9 @@
 # CPU Physical cores : 14
 # CPU Logical cores  : 28
 # Host memory        : 17082 MB
-# Swap memory        : 28328 MB
-# Total Virtual      : 45410 MB
-# Available Virtual  : 6617 MB
+# Swap memory        : 27059 MB
+# Total Virtual      : 44142 MB
+# Available Virtual  : 8878 MB
 #-----------------------------------------------------------
 source xsim.dir/rtllm_snap/xsim_script.tcl
 # xsim {rtllm_snap} -autoloadwcfg -runall
@@ -28,4 +28,4 @@ run -all
 ===========Error===========
 $finish called at time : 148 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/pulse_detect/testbench.v" Line 43
 exit
-INFO: [Common 17-206] Exiting xsim at Mon Jun 15 21:13:31 2026...
+INFO: [Common 17-206] Exiting xsim at Tue Jun 16 00:01:38 2026...
