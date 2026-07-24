@@ -1,0 +1,10 @@
+As a digital design expert, construct a pipelined Advanced Encryption Standard (AES-128 encryption) with
+
+module name: AES_Encrypt
+Input ports: clk, rst, Plain_text (128 bits)[127:0], EN, Key_in (128 bits)[127:0]
+Output ports: Cypher_text (128 bits)[127:0]
+
+
+feel free to use structural design which composed of simpler modules.
+
+

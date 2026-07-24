@@ -1,0 +1,7 @@
+As a digital design expert, build an interpolation Filter with an interpolation factor of 8 in Verilog code. Use a signed Q8.8 format for the coefficients. use standard coefficients values.
+
+use
+module name: fir_interpolator
+Input ports: data_in (16-bit)
+Output ports: data_out (16-bit)
+Control signals: clk, rst, valid_in, and valid_out

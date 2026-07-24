@@ -1,0 +1,6 @@
+As a digital design expert, construct low power integer multiplier.
+
+use
+module name: mul_low_power
+Input ports: a (16-bit), b (16-bit)
+Output ports: result (32-bit)

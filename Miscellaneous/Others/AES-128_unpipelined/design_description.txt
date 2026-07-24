@@ -1,0 +1,19 @@
+Please act as a professional verilog designer.
+
+Implement a non-pipelined AES-128 encryption core. Given a 128-bit plaintext and a 128-bit key it produces the 128-bit ciphertext.
+
+Module name:
+    AES_Encrypt
+Input ports:
+    clk: clock.
+    rst: reset.
+    Plain_text[127:0]: 128-bit plaintext block.
+    EN: enable.
+    Key_in[127:0]: 128-bit cipher key.
+Output ports:
+    Cypher_text[127:0]: 128-bit ciphertext block.
+
+Implementation:
+Perform standard AES-128 (FIPS-197) encryption: expand the key into 11 round keys, apply the initial AddRoundKey, then 9 full rounds of SubBytes, ShiftRows, MixColumns and AddRoundKey, followed by a final round that omits MixColumns. A non-pipelined (iterative or single-shot combinational) datapath is acceptable. The ciphertext must equal the FIPS-197 result for the given key and plaintext.
+
+Give me the complete code.

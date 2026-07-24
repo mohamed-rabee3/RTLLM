@@ -1,0 +1,23 @@
+Please act as a professional verilog designer.
+
+Implement the LH sub-band of a 2D forward Haar wavelet transform. The input is a 16x16 grayscale image (8-bit pixels) streamed one pixel per clock. The module produces only the 8x8 LH (horizontal-detail) band.
+
+Module name:
+    haar_wavelet_lh_only
+Input ports:
+    clk: clock.
+    rst_n: asynchronous active-low reset.
+    valid_in: high while a pixel is being presented.
+    row[3:0]: row address (0-15) of the incoming pixel.
+    col[3:0]: column address (0-15) of the incoming pixel.
+    data_in[7:0]: 8-bit grayscale pixel.
+Output ports:
+    data_out[15:0]: signed 16-bit LH coefficient.
+    valid_out: high for one clock per output coefficient.
+    out_row[2:0]: row index (0-7) of the coefficient.
+    out_col[2:0]: column index (0-7) of the coefficient.
+
+Implementation:
+Buffer the full 16x16 image (addressed by row,col). After the last pixel (15,15) is written, stream the 8x8 LH band. Use the fixed-point Haar approximation with scale factor 181/256 (~1/sqrt(2)). For output position (r,c): compute the horizontal high-pass of the two rows 2r and 2r+1 as (p_even - p_odd)*181/256 at column pair (2c,2c+1), then combine the two rows with a vertical low-pass ((top+bottom)*181/256). Emit each coefficient on data_out with valid_out, out_row=r, out_col=c. After 64 coefficients return to idle, ready for the next image.
+
+Give me the complete code.

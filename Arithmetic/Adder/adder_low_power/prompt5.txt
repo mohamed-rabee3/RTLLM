@@ -1,0 +1,6 @@
+As a digital design expert, construct a low power integer adder.
+
+use
+module name: add_low_power
+Input ports: a (16-bit), b (16-bit)
+Output ports: result (17-bit)

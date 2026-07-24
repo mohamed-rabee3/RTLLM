@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Jun 15 23:54:45 2026
-# Process ID         : 10872
+# Start of session at: Sun Jun 28 22:42:53 2026
+# Process ID         : 27900
 # Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Multiplier/multi_8bit
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
 # Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Multiplier/multi_8bit/xsim.log
@@ -17,15 +17,115 @@
 # CPU Physical cores : 14
 # CPU Logical cores  : 28
 # Host memory        : 17082 MB
-# Swap memory        : 28247 MB
-# Total Virtual      : 45330 MB
-# Available Virtual  : 5884 MB
+# Swap memory        : 18170 MB
+# Total Virtual      : 35252 MB
+# Available Virtual  : 4557 MB
 #-----------------------------------------------------------
 source xsim.dir/rtllm_snap/xsim_script.tcl
 # xsim {rtllm_snap} -autoloadwcfg -runall
 Time resolution is 1 ps
 run -all
-=========== Your Design Passed ===========
+Test failed: A =  36, B = 129, Expected Product =  36, Got =     0
+Test failed: A =   9, B =  99, Expected Product = 123, Got =     0
+Test failed: A =  13, B = 141, Expected Product =  41, Got =    64
+Test failed: A = 101, B =  18, Expected Product =  26, Got = 65472
+Test failed: A =   1, B =  13, Expected Product =  13, Got =    16
+Test failed: A = 118, B =  61, Expected Product =  30, Got =    24
+Test failed: A = 237, B = 140, Expected Product = 156, Got = 65496
+Test failed: A = 249, B = 198, Expected Product = 150, Got = 65368
+Test failed: A = 197, B = 170, Expected Product = 210, Got = 65240
+Test failed: A = 229, B = 119, Expected Product = 115, Got = 65112
+Test failed: A =  18, B = 143, Expected Product =  14, Got = 65176
+Test failed: A = 242, B = 206, Expected Product = 188, Got = 65176
+Test failed: A = 232, B = 197, Expected Product = 136, Got = 65176
+Test failed: A =  92, B = 189, Expected Product = 236, Got = 65176
+Test failed: A =  45, B = 101, Expected Product = 193, Got = 65176
+Test failed: A =  99, B =  10, Expected Product = 222, Got = 65240
+Test failed: A = 128, B =  32, Expected Product =   0, Got = 65264
+Test failed: A = 170, B = 157, Expected Product =  66, Got = 65264
+Test failed: A = 150, B =  19, Expected Product =  34, Got = 65264
+Test failed: A =  13, B =  83, Expected Product =  55, Got = 65360
+Test failed: A = 107, B = 213, Expected Product =   7, Got = 65424
+Test failed: A =   2, B = 174, Expected Product =  92, Got = 65296
+Test failed: A =  29, B = 207, Expected Product = 115, Got = 65296
+Test failed: A =  35, B =  10, Expected Product =  94, Got = 65168
+Test failed: A = 202, B =  60, Expected Product =  88, Got = 65192
+Test failed: A = 242, B = 138, Expected Product = 116, Got = 65256
+Test failed: A =  65, B = 216, Expected Product = 216, Got = 65256
+Test failed: A = 120, B = 137, Expected Product =  56, Got = 65128
+Test failed: A = 235, B = 182, Expected Product =  18, Got = 65128
+Test failed: A = 198, B = 174, Expected Product = 148, Got = 65000
+Test failed: A = 188, B =  42, Expected Product = 216, Got = 65000
+Test failed: A =  11, B = 113, Expected Product = 219, Got = 64872
+Test failed: A = 133, B =  79, Expected Product =  11, Got = 64808
+Test failed: A =  59, B =  58, Expected Product =  94, Got = 64872
+Test failed: A = 126, B =  21, Expected Product =  86, Got = 64968
+Test failed: A = 241, B = 217, Expected Product =  73, Got = 64936
+Test failed: A =  98, B =  76, Expected Product =  24, Got = 64808
+Test failed: A = 159, B = 143, Expected Product = 209, Got = 64680
+Test failed: A = 248, B = 183, Expected Product =  72, Got = 64552
+Test failed: A = 159, B =  92, Expected Product =  36, Got = 64552
+Test failed: A =  91, B = 137, Expected Product = 179, Got = 64488
+Test failed: A =  73, B = 208, Expected Product =  80, Got = 64360
+Test failed: A = 215, B =  81, Expected Product =   7, Got = 64232
+Test failed: A = 150, B =  12, Expected Product =   8, Got = 64168
+Test failed: A = 194, B = 200, Expected Product = 144, Got = 64088
+Test failed: A = 119, B =  61, Expected Product =  91, Got = 64088
+Test failed: A =  18, B = 126, Expected Product = 220, Got = 64056
+Test failed: A = 109, B =  57, Expected Product =  69, Got = 63928
+Test failed: A =  31, B = 211, Expected Product = 141, Got = 63832
+Test failed: A = 133, B = 120, Expected Product =  88, Got = 63704
+Test failed: A =  91, B =  73, Expected Product = 243, Got = 63768
+Test failed: A =  63, B =  42, Expected Product =  86, Got = 63704
+Test failed: A =  88, B = 134, Expected Product =  16, Got = 63672
+Test failed: A = 142, B = 156, Expected Product = 136, Got = 63672
+Test failed: A = 250, B =  38, Expected Product =  28, Got = 63672
+Test failed: A = 115, B = 163, Expected Product =  57, Got = 63736
+Test failed: A =  47, B = 179, Expected Product = 221, Got = 63608
+Test failed: A =  95, B =  68, Expected Product =  60, Got = 63480
+Test failed: A = 247, B = 203, Expected Product = 221, Got = 63416
+Test failed: A = 230, B =  90, Expected Product = 220, Got = 63288
+Test failed: A =  41, B = 237, Expected Product = 245, Got = 63160
+Test failed: A = 218, B = 101, Expected Product =   2, Got = 63032
+Test failed: A = 181, B = 223, Expected Product = 171, Got = 62904
+Test failed: A = 121, B =  68, Expected Product =  36, Got = 62776
+Test failed: A = 208, B =  42, Expected Product =  32, Got = 62840
+Test failed: A = 171, B =  14, Expected Product =  90, Got = 62840
+Test failed: A = 220, B = 154, Expected Product =  88, Got = 62928
+Test failed: A = 253, B = 195, Expected Product = 183, Got = 62928
+Test failed: A =  86, B =  78, Expected Product =  52, Got = 62800
+Test failed: A = 103, B =  10, Expected Product =   6, Got = 62672
+Test failed: A = 182, B =  56, Expected Product = 208, Got = 62728
+Test failed: A = 121, B = 184, Expected Product = 248, Got = 62664
+Test failed: A = 148, B = 147, Expected Product = 252, Got = 62536
+Test failed: A =   4, B =  89, Expected Product = 100, Got = 62536
+Test failed: A = 219, B =  77, Expected Product = 223, Got = 62536
+Test failed: A = 217, B = 109, Expected Product = 101, Got = 62472
+Test failed: A = 118, B = 202, Expected Product =  28, Got = 62536
+Test failed: A = 182, B = 149, Expected Product = 238, Got = 62536
+Test failed: A =  70, B =   4, Expected Product =  24, Got = 62536
+Test failed: A = 247, B = 105, Expected Product =  79, Got = 62560
+Test failed: A = 180, B = 136, Expected Product = 160, Got = 62496
+Test failed: A =  40, B =  45, Expected Product =   8, Got = 62496
+Test failed: A = 199, B =  46, Expected Product = 194, Got = 62496
+Test failed: A =   8, B =  28, Expected Product = 224, Got = 62464
+Test failed: A = 253, B =  41, Expected Product = 133, Got = 62336
+Test failed: A =  28, B = 134, Expected Product = 168, Got = 62240
+Test failed: A = 218, B =  61, Expected Product = 242, Got = 62240
+Test failed: A = 102, B = 112, Expected Product = 160, Got = 62304
+Test failed: A = 115, B = 186, Expected Product = 142, Got = 62176
+Test failed: A =  94, B = 250, Expected Product = 204, Got = 62048
+Test failed: A = 213, B =  26, Expected Product = 162, Got = 62048
+Test failed: A = 185, B =  55, Expected Product = 191, Got = 62128
+Test failed: A = 150, B = 192, Expected Product = 128, Got = 62160
+Test failed: A =  38, B = 182, Expected Product =   4, Got = 62160
+Test failed: A = 125, B = 220, Expected Product = 108, Got = 62160
+Test failed: A = 134, B = 120, Expected Product = 208, Got = 62032
+Test failed: A = 126, B = 219, Expected Product = 202, Got = 61904
+Test failed: A = 207, B = 121, Expected Product = 215, Got = 61904
+Test failed: A = 250, B =  97, Expected Product = 186, Got = 61840
+Test failed: A =  23, B = 161, Expected Product = 119, Got = 61712
+=========== Test completed with         100 /100 failures ===========
 $finish called at time : 1 us : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Multiplier/multi_8bit/testbench.v" Line 45
 exit
-INFO: [Common 17-206] Exiting xsim at Mon Jun 15 23:54:47 2026...
+INFO: [Common 17-206] Exiting xsim at Sun Jun 28 22:42:55 2026...

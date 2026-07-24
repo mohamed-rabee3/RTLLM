@@ -1,2 +1,5 @@
 .env
 venv/
+
+openrouter_deepseek_v4_pro_vhdl/
+openrouter_deepseek_v4_pro/

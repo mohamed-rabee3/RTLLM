@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a simple integer multiplier that multiplies two 16-bit unsigned operands and produces a 32-bit product.
+
+Module name:
+    mul
+Input ports:
+    a[15:0]: 16-bit unsigned operand.
+    b[15:0]: 16-bit unsigned operand.
+Output ports:
+    result[31:0]: 32-bit product of a and b.
+
+Implementation:
+result = a * b using unsigned multiplication. The 32-bit output holds the full product with no truncation. The design is purely combinational.
+
+Give me the complete code.

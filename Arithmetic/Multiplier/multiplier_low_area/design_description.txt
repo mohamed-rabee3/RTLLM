@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a low-area integer multiplier that multiplies two 16-bit unsigned operands and produces a 32-bit product.
+
+Module name:
+    mul_low_area
+Input ports:
+    a[15:0]: 16-bit unsigned operand.
+    b[15:0]: 16-bit unsigned operand.
+Output ports:
+    result[31:0]: 32-bit product of a and b.
+
+Implementation:
+Use a shift-and-add array multiplier. For each bit i of b, add a<<i to the running sum when b[i] is 1. Accumulating the 16 conditional partial products yields the 32-bit product with minimal hardware. The design is purely combinational.
+
+Give me the complete code.

@@ -1,0 +1,6 @@
+As a digital design expert, construct a divider that takes 16-bit inputs for the dividend and divisor and produce quotient in Qs8.7 format.
+
+use
+module name: divider 
+Input ports: dividend (16-bit), divisor (16-bit)
+Output ports: quotient (16-bit)

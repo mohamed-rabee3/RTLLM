@@ -1,0 +1,19 @@
+As a digital design expert, 
+construct a SHA-256 hash function with
+
+module name: sha256_core
+Input ports: clk, reset_n, init, next, block (512 bits)[511 : 0]
+Output ports: ready, digest_valid, digest (256 bits)[255 : 0]
+
+where reset is asynchronous active-low , INIT starts fresh hash with initial constants (use once per message), and NEXT continue hash with previous digest (use for blocks 2...N)
+
+then make an interface(wrapper) to it with 
+
+module name: sha256
+Input ports: clk, reset_n, cs, we, address (8 bits)[7:0], write_data (32 bits)[31:0]
+Output ports: read_data (32 bits)[31:0] , error
+
+where chip select, cs, enables the module when asserted, write enable, wr, distinguishes between read (0) and write (1) operations, and error detect invalid address accesses.
+
+feel free to use structural design which composed of simpler modules.
+

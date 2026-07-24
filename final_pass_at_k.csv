@@ -1,0 +1,3 @@
+Language,syntax_pass@1,syntax_pass@2,syntax_pass@3,syntax_pass@4,syntax_pass@5,func_pass@1,func_pass@2,func_pass@3,func_pass@4,func_pass@5
+Verilog,0.508,0.538,0.554,0.56,0.56,0.236,0.254,0.26,0.26,0.26
+VHDL,0.52,0.578,0.614,0.64,0.66,0.2,0.234,0.25,0.256,0.26

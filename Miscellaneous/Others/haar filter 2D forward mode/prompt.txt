@@ -1,0 +1,7 @@
+As a digital design expert, construct a 2D forward haar wavelet filter module in Verilog language. Input image is in gray scale and has 16 pixel × 16 pixel size. Use the standard coefficient values. The module should generate the LH output image only. Use 16-bit coefficient.
+
+Use 
+module name: haar_wavelet_lh_only
+Input ports: row(4-bit), col(4-bit), and data_in (8-bit)
+Output ports: data_out(16-bit), out_row(3-bit), and out_col(3-bit)
+Control signals: clk, rst_n (active low), valid_in, and valid_out

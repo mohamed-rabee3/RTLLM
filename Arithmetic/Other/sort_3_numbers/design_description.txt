@@ -1,0 +1,19 @@
+Please act as a professional verilog designer.
+
+Implement a sorting module that sorts three 10-bit unsigned numbers and outputs them as maximum, median, and minimum.
+
+Module name:
+    sorting_3_numbers
+Input ports:
+    a1[9:0]: first 10-bit unsigned number.
+    a2[9:0]: second 10-bit unsigned number.
+    a3[9:0]: third 10-bit unsigned number.
+Output ports:
+    max[9:0]: the largest of the three inputs.
+    med[9:0]: the middle (median) of the three inputs.
+    min[9:0]: the smallest of the three inputs.
+
+Implementation:
+Use a three-element compare-and-swap sorting network. First compare a1 and a2 and order them, then compare the larger side with a3, and finally re-order the remaining pair so the three values are fully ordered. Drive min, med and max from the ordered values. The design is purely combinational.
+
+Give me the complete code.

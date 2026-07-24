@@ -1,0 +1,6 @@
+As a digital design expert, construct a low area integer adder.
+
+use
+module name: add_low_area
+Input ports: a (16-bit), b (16-bit)
+Output ports: result (17-bit)

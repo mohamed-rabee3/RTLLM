@@ -1,0 +1,7 @@
+As a digital design expert, construct a Verilog code for a combinational design of a square-root algorithm that takes a 16-bit input and produces an 8-bit output.
+
+
+use
+module name: SQRT
+Input ports: value (16-bit)
+Output ports: result (8-bit)

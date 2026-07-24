@@ -1,0 +1,19 @@
+Please act as a professional verilog designer.
+
+Implement a 16-bit binary to BCD (Binary-Coded Decimal) converter. The result packs the five decimal digits of the input into a 20-bit output (4 bits per digit).
+
+Module name:
+    bin2bcd_array
+Input ports:
+    clk: clock.
+    rst: synchronous active-high reset.
+    valid_in: asserted for one clock cycle when binary_in is valid.
+    binary_in[15:0]: 16-bit unsigned value to convert.
+Output ports:
+    bcd_out[19:0]: five BCD digits; bcd_out[3:0] is the ones digit, bcd_out[7:4] the tens, up to bcd_out[19:16] for the ten-thousands digit.
+    valid_out: asserted for one clock cycle when bcd_out is valid.
+
+Implementation:
+Use the double-dabble (shift-and-add-3) algorithm. Register the conversion so that one cycle after valid_in is sampled high, bcd_out holds the converted digits and valid_out is asserted for that cycle. Each of the five BCD nibbles that is 5 or greater has 3 added to it before every left shift, repeated for all 16 input bits, which yields the correct BCD digits.
+
+Give me the complete code.

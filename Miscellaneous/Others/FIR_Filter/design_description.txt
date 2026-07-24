@@ -1,0 +1,19 @@
+Please act as a professional verilog designer.
+
+Implement a 4-tap symmetric FIR filter using signed Q8.8 fixed-point coefficients.
+
+Module name:
+    fir_interpolator
+Input ports:
+    clk: clock.
+    rst: synchronous active-high reset.
+    valid_in: asserted for one clock cycle per input sample.
+    data_in[15:0]: signed 16-bit input sample.
+Output ports:
+    valid_out: asserted for one clock cycle per output sample.
+    data_out[15:0]: signed 16-bit filtered output sample.
+
+Implementation:
+Use the symmetric coefficient set {0.25, 0.5, 0.5, 0.25} in Q8.8 format (16'sh0040, 16'sh0080, 16'sh0080, 16'sh0040). Keep a delay line of the last four input samples (zero-initialized on reset). For each valid input sample x[n], compute the accumulation h0*x[n] + h1*x[n-1] + h2*x[n-2] + h3*x[n-3] in a wide signed accumulator, arithmetic-shift the result right by 8 to remove the Q8.8 scaling, and drive the low 16 bits onto data_out with valid_out asserted. Latency is one cycle after valid_in.
+
+Give me the complete code.

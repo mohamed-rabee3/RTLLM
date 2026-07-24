@@ -1,0 +1,8 @@
+As a digital design expert, construct a 16-bit binary to BCD converter module in Verilog language.
+
+Use 
+module name: bin2bcd_array
+Input ports: binary_in (16 bits [15:0])
+Output ports: bcd_out (20 bits [19:0] represent the 5 BCD digits)
+Control signals: clk, rst (active high), valid_in (active for one clock cycle), and valid out (active for one clock cycle)
+

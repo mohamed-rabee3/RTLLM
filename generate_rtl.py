@@ -16,6 +16,8 @@ parser.add_argument("--lang", choices=LANG_CONFIG.keys(), default="verilog",
                     help="Target HDL for generation (default: verilog).")
 parser.add_argument("--only", default=None,
                     help="Generate just this single design (by name), for smoke-testing.")
+parser.add_argument("--trials", type=int, default=1,
+                    help="Number of independent trials to generate (t1..tN). Use 5 for pass@5. Default: 1.")
 args = parser.parse_args()
 LANG = LANG_CONFIG[args.lang]
 
@@ -50,7 +52,6 @@ if not API_KEY:
     raise SystemExit("Error: OPENROUTER_API_KEY not set (put it in .env).")
 BASE_URL = "https://openrouter.ai/api/v1"
 MODEL_ID = "deepseek/deepseek-v4-pro"  # OpenRouter spec identifier for DeepSeek V4 Pro
-TRIAL_NAME = "t1"
 
 REQUEST_TIMEOUT = 600       # 10 min ceiling for large RTL generation tasks
 MAX_RETRIES = 3
@@ -80,10 +81,12 @@ if args.only:
     design_map = {args.only: design_map[args.only]}
 
 # 2. Output dir setup
-output_dir = os.path.abspath(f"{LANG['out_dir']}/{TRIAL_NAME}")
-os.makedirs(output_dir, exist_ok=True)
+trial_names = [f"t{i}" for i in range(1, args.trials + 1)]
+for trial_name in trial_names:
+    os.makedirs(os.path.abspath(f"{LANG['out_dir']}/{trial_name}"), exist_ok=True)
 
-print(f"Found {len(design_map)} designs. Generating {LANG['label']} via OpenRouter...")
+print(f"Found {len(design_map)} designs. Generating {LANG['label']} via OpenRouter "
+      f"for trials {trial_names[0]}..{trial_names[-1]}...")
 
 def generate_with_retry(prompt, name):
     last_err = None
@@ -114,43 +117,47 @@ def generate_with_retry(prompt, name):
                 raise last_err
 
 # 3. Iterate and evaluate spec blocks
-for name, folder_path in tqdm(design_map.items()):
-    out_file_path = os.path.join(output_dir, f"{name}{LANG['ext']}")
+for trial_name in trial_names:
+    output_dir = os.path.abspath(f"{LANG['out_dir']}/{trial_name}")
+    tqdm.write(f"\n=== Trial {trial_name} ===")
 
-    # Resume support: skip already-generated, non-empty files
-    if os.path.exists(out_file_path) and os.path.getsize(out_file_path) > 0:
-        tqdm.write(f"[Skip] '{name}' already generated.")
-        continue
+    for name, folder_path in tqdm(design_map.items()):
+        out_file_path = os.path.join(output_dir, f"{name}{LANG['ext']}")
 
-    with open(os.path.join(folder_path, "design_description.txt"), "r", encoding="utf-8") as f:
-        design_description = f.read()
+        # Resume support: skip already-generated, non-empty files
+        if os.path.exists(out_file_path) and os.path.getsize(out_file_path) > 0:
+            tqdm.write(f"[Skip] '{name}' ({trial_name}) already generated.")
+            continue
 
-    # Specs are authored for Verilog; retarget the wording at prompt time so the
-    # same 50 description files drive either language (entity/port names match
-    # the shared Verilog testbench, which XSim binds case-insensitively).
-    if args.lang == "vhdl":
-        design_description = re.sub(r"verilog", "VHDL", design_description, flags=re.IGNORECASE)
+        with open(os.path.join(folder_path, "design_description.txt"), "r", encoding="utf-8") as f:
+            design_description = f.read()
 
-    prompt = (
-        f"You are an expert RTL hardware engineer.\n"
-        f"Generate syntactically correct {LANG['label']} code for the module specified below.\n"
-        f"Ensure all pre-defined module names, input/output port names, and bit-widths "
-        f"exactly match the specification requirements.\n\n"
-        f"Specification:\n{design_description}\n\n"
-        f"Provide the complete {LANG['label']} code wrapped cleanly inside a "
-        f"```{LANG['fence']} ... ``` codeblock."
-    )
+        # Specs are authored for Verilog; retarget the wording at prompt time so the
+        # same 50 description files drive either language (entity/port names match
+        # the shared Verilog testbench, which XSim binds case-insensitively).
+        if args.lang == "vhdl":
+            design_description = re.sub(r"verilog", "VHDL", design_description, flags=re.IGNORECASE)
 
-    try:
-        content = generate_with_retry(prompt, name)
-        match = re.search(rf"```{LANG['fence']}(.*?)```", content, re.DOTALL | re.IGNORECASE)
-        rtl_code = match.group(1).strip() if match else content.strip()
+        prompt = (
+            f"You are an expert RTL hardware engineer.\n"
+            f"Generate syntactically correct {LANG['label']} code for the module specified below.\n"
+            f"Ensure all pre-defined module names, input/output port names, and bit-widths "
+            f"exactly match the specification requirements.\n\n"
+            f"Specification:\n{design_description}\n\n"
+            f"Provide the complete {LANG['label']} code wrapped cleanly inside a "
+            f"```{LANG['fence']} ... ``` codeblock."
+        )
 
-        with open(out_file_path, "w", encoding="utf-8") as f:
-            f.write(rtl_code)
+        try:
+            content = generate_with_retry(prompt, f"{name}/{trial_name}")
+            match = re.search(rf"```{LANG['fence']}(.*?)```", content, re.DOTALL | re.IGNORECASE)
+            rtl_code = match.group(1).strip() if match else content.strip()
 
-        time.sleep(0.5)
-    except Exception as e:
-        tqdm.write(f"[Error] Final failure for '{name}': {e}")
+            with open(out_file_path, "w", encoding="utf-8") as f:
+                f.write(rtl_code)
 
-print(f"\nGeneration complete! Output files saved to: {output_dir}")
+            time.sleep(0.5)
+        except Exception as e:
+            tqdm.write(f"[Error] Final failure for '{name}' ({trial_name}): {e}")
+
+print(f"\nGeneration complete! Output saved under: {os.path.abspath(LANG['out_dir'])}/")

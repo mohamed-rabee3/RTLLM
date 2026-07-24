@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a divider for IEEE-754 single-precision (32-bit) floating-point numbers. The quotient uses a truncating (round-toward-zero) mantissa.
+
+Module name:
+    fp_divider
+Input ports:
+    a[31:0]: 32-bit IEEE-754 single-precision dividend.
+    b[31:0]: 32-bit IEEE-754 single-precision divisor.
+Output ports:
+    result[31:0]: 32-bit IEEE-754 single-precision quotient.
+
+Implementation:
+Split each operand into sign, 8-bit exponent and 23-bit fraction; form the 24-bit mantissa by prepending the implicit leading 1. Handle special cases first: if either input is NaN, or both are infinity, output the canonical NaN 32'h7FC00000; if a is infinity output signed infinity; if b is infinity output signed zero; if b is zero output signed infinity; if a is zero output +0. For the normal case, the result sign is sign_a xor sign_b, the result exponent is exp_a - exp_b + 127 (8-bit), and the mantissa quotient is (man_a << 23) / man_b as a 48-bit value. Normalize: if bit 47 is set take bits [46:24] as the fraction and add 1 to the exponent, otherwise take bits [45:23]. Concatenate sign, exponent and fraction. The design is purely combinational.
+
+Give me the complete code.

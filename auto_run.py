@@ -1,4 +1,5 @@
 import argparse
+import csv
 import os
 import re
 import time
@@ -19,8 +20,10 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # compiled with xvhdl and bound to the Verilog bench by XSim's mixed-language
 # elaboration (entity/port names matched case-insensitively).
 LANG_CONFIG = {
-    "verilog": {"ext": ".v", "gen_dir": "openrouter_deepseek_v4_pro"},
-    "vhdl": {"ext": ".vhd", "gen_dir": "openrouter_deepseek_v4_pro_vhdl"},
+    "verilog":     {"ext": ".v",   "gen_dir": "openrouter_deepseek_v4_pro",      "hdl": "verilog"},
+    "vhdl":        {"ext": ".vhd", "gen_dir": "openrouter_deepseek_v4_pro_vhdl", "hdl": "vhdl"},
+    "qwen_verilog":{"ext": ".v",   "gen_dir": "qwen_verilog",                    "hdl": "verilog"},
+    "qwen_vhdl":   {"ext": ".vhd", "gen_dir": "qwen_vhdl",                       "hdl": "vhdl"},
 }
 
 
@@ -131,6 +134,32 @@ def exec_shell(cmd_str, timeout=120):
         except subprocess.TimeoutExpired:
             pass
         return 0
+
+
+def discover_trials(generation_path, max_trials=5):
+    """Return available trial folder names under generation_path.
+
+    Supports RTLLM convention (t1..tN) and Pass1..PassN style folders.
+    """
+    trials = []
+    for i in range(1, max_trials + 1):
+        trial_id = f"t{i}"
+        if os.path.isdir(os.path.join(generation_path, trial_id)):
+            trials.append(trial_id)
+    if trials:
+        return trials
+
+    def trial_sort_key(name):
+        match = re.search(r"(\d+)$", name)
+        return int(match.group(1)) if match else name
+
+    for name in sorted(os.listdir(generation_path), key=trial_sort_key):
+        path = os.path.join(generation_path, name)
+        if not os.path.isdir(path):
+            continue
+        if re.fullmatch(r"(?i)t\d+|pass\d+", name):
+            trials.append(name)
+    return trials[:max_trials] if max_trials else trials
 
 
 def cal_atk(dic_list, n, k):
@@ -269,10 +298,20 @@ for root, dirs, files in os.walk("."):
 parser = argparse.ArgumentParser(description="Evaluate generated RTL on the RTLLM benchmark via Vivado XSim.")
 parser.add_argument("--lang", choices=LANG_CONFIG.keys(), default="verilog",
                     help="HDL of the generated designs to evaluate (default: verilog).")
+parser.add_argument("--gen-dir", default=None,
+                    help="Directory containing trial subfolders (e.g. t1/) with generated RTL. "
+                         "Defaults to the language preset (openrouter_deepseek_v4_pro, etc.).")
+parser.add_argument("--trials", type=int, default=5,
+                    help="Evaluate up to this many trials (t1..tN). Default: 5.")
+parser.add_argument("--pass-k", nargs="+", type=int, default=[1, 2, 5],
+                    help="pass@k metrics to report (default: 1 2 5).")
+parser.add_argument("--csv", default=None,
+                    help="Output CSV path. Defaults to <gen_dir_basename>.csv.")
 cli_args = parser.parse_args()
 LANG = LANG_CONFIG[cli_args.lang]
 
-generation_path = os.path.abspath(LANG["gen_dir"])
+generation_path = os.path.abspath(cli_args.gen_dir or LANG["gen_dir"])
+trial_ids = discover_trials(generation_path, cli_args.trials)
 result_dic = {key: {"syntax_success": 0, "func_success": 0} for key in design_names}
 
 load_env_file()
@@ -286,7 +325,7 @@ if not setup_vivado_path():
     print("Or set VIVADO_BIN to the bin folder directly.")
     raise SystemExit(1)
 
-progress_bar = tqdm.tqdm(total=len(design_names))
+progress_bar = tqdm.tqdm(total=len(design_names) * max(len(trial_ids), 1))
 
 
 def test_one_trial(trial_id, result_dic):
@@ -304,7 +343,7 @@ def test_one_trial(trial_id, result_dic):
             continue
 
         os.chdir(target_folder)
-        syntax_ok, output = run_vivado_sim(generated_file, cli_args.lang)
+        syntax_ok, output = run_vivado_sim(generated_file, LANG["hdl"])
 
         if syntax_ok:
             result_dic[design]["syntax_success"] += 1
@@ -318,19 +357,49 @@ def test_one_trial(trial_id, result_dic):
     return result_dic
 
 
-if os.path.exists(os.path.join(generation_path, "t1")):
-    result_dic = test_one_trial("t1", result_dic)
+if trial_ids:
+    for trial_id in trial_ids:
+        result_dic = test_one_trial(trial_id, result_dic)
     progress_bar.close()
 
+    n_trials = len(trial_ids)
     total_syntax_success = sum(1 for item in design_names if result_dic[item]["syntax_success"] > 0)
     total_func_success = sum(1 for item in design_names if result_dic[item]["func_success"] > 0)
 
     print("\n" + "=" * 40)
-    print(f"BENCHMARK SUMMARY (Vivado XSim, lang={cli_args.lang})")
-    print(f"Total Syntax Passing Modules: {total_syntax_success}/{len(design_names)}")
-    print(f"Total Functionally Verified Modules: {total_func_success}/{len(design_names)}")
+    print(f"BENCHMARK SUMMARY (Vivado XSim, lang={cli_args.lang}, gen_dir={os.path.basename(generation_path)})")
+    print(f"Trials evaluated: {', '.join(trial_ids)} ({n_trials} total)")
+    print(f"Designs with >=1 syntax pass: {total_syntax_success}/{len(design_names)}")
+    print(f"Designs with >=1 functional pass: {total_func_success}/{len(design_names)}")
     print("=" * 40)
 
-    cal_atk(result_dic, 1, 1)
+    for k in sorted(set(cli_args.pass_k)):
+        if k > n_trials:
+            print(f"\npass@{k}: skipped (need {k} trials, have {n_trials})")
+            continue
+        print(f"\n--- pass@{k} (n={n_trials}) ---")
+        cal_atk(result_dic, n_trials, k)
+
+    csv_path = cli_args.csv or f"{os.path.basename(generation_path)}.csv"
+    with open(csv_path, "w", newline="", encoding="utf-8") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=[
+            "design", "syntax_success", "func_success",
+            "syntax_pass_rate", "func_pass_rate", "n_trials",
+        ])
+        writer.writeheader()
+        for design in design_names:
+            s = result_dic[design]["syntax_success"]
+            f = result_dic[design]["func_success"]
+            writer.writerow({
+                "design": design,
+                "syntax_success": s,
+                "func_success": f,
+                "syntax_pass_rate": f"{s / n_trials:.4f}",
+                "func_pass_rate": f"{f / n_trials:.4f}",
+                "n_trials": n_trials,
+            })
+    print(f"\nResults saved to: {os.path.abspath(csv_path)}")
 else:
+    progress_bar.close()
     print("Error: Missing target directories.")
+    print(f"Expected trial folders like t1..t{cli_args.trials} under: {generation_path}")

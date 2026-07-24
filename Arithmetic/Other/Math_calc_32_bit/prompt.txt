@@ -1,0 +1,6 @@
+As a digital design expert, construct a two inputs 32- bit unsigned integer ALU module that has three functions addition, multiplication, and minimum in Verilog code.
+Use 
+module name: alu_32bit_unsigned
+Input ports: a, b (32-bit) and op (2-bit)
+Output ports: result (64-bit)
+Control signals: clk, rst (active high), valid_in, and result_valid

@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a high-speed integer adder that adds two 16-bit operands and produces a 17-bit result so the carry-out is preserved. Latency is minimized at the cost of area.
+
+Module name:
+    add_fast
+Input ports:
+    a[15:0]: 16-bit operand.
+    b[15:0]: 16-bit operand.
+Output ports:
+    result[16:0]: 17-bit sum of a and b.
+
+Implementation:
+Use a carry-select structure. Split the 16-bit addition into two 8-bit blocks. The lower block adds the low bytes. The upper block precomputes both possible sums (assuming carry-in 0 and carry-in 1) in parallel, then a multiplexer selects the correct upper sum using the lower block's carry-out. This shortens the critical path versus a ripple chain. The design is purely combinational.
+
+Give me the complete code.

@@ -1,0 +1,6 @@
+As a digital design expert, construct a divider that handels single precision ieee 754 floating point standard inputs and output.
+
+use
+module name: fp_divider
+Input ports: a (32-bit), b (32-bit)
+Output ports: result (32-bit)

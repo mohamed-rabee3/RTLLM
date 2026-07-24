@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a low-area integer adder that adds two 16-bit operands and produces a 17-bit result so the carry-out is preserved. Area is minimized at the cost of latency.
+
+Module name:
+    add_low_area
+Input ports:
+    a[15:0]: 16-bit operand.
+    b[15:0]: 16-bit operand.
+Output ports:
+    result[16:0]: 17-bit sum of a and b.
+
+Implementation:
+Use a ripple-carry adder built from a chain of 16 full adders. Each full adder takes a[i], b[i] and the carry from the previous stage, producing a sum bit and a carry that feeds the next stage. The final carry-out becomes result[16]. This uses the least hardware. The design is purely combinational.
+
+Give me the complete code.

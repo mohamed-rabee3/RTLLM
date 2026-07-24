@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Jun 15 23:55:55 2026
-# Process ID         : 23056
+# Start of session at: Sun Jun 28 22:43:34 2026
+# Process ID         : 19552
 # Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Comparator/comparator_3bit
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
 # Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Comparator/comparator_3bit/xsim.log
@@ -17,9 +17,9 @@
 # CPU Physical cores : 14
 # CPU Logical cores  : 28
 # Host memory        : 17082 MB
-# Swap memory        : 28247 MB
-# Total Virtual      : 45330 MB
-# Available Virtual  : 6040 MB
+# Swap memory        : 18170 MB
+# Total Virtual      : 35252 MB
+# Available Virtual  : 5293 MB
 #-----------------------------------------------------------
 source xsim.dir/rtllm_snap/xsim_script.tcl
 # xsim {rtllm_snap} -autoloadwcfg -runall
@@ -28,4 +28,4 @@ run -all
 =========== Your Design Passed ===========
 $finish called at time : 1 us : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Comparator/comparator_3bit/testbench.v" Line 48
 exit
-INFO: [Common 17-206] Exiting xsim at Mon Jun 15 23:55:57 2026...
+INFO: [Common 17-206] Exiting xsim at Sun Jun 28 22:43:37 2026...

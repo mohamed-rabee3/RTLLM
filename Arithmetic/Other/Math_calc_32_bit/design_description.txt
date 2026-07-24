@@ -1,0 +1,21 @@
+Please act as a professional verilog designer.
+
+Implement a 32-bit unsigned integer ALU with three operations: addition, multiplication, and minimum.
+
+Module name:
+    alu_32bit_unsigned
+Input ports:
+    clk: clock.
+    rst: synchronous active-high reset.
+    valid_in: asserted for one clock cycle when the operands are valid.
+    a[31:0]: 32-bit unsigned operand.
+    b[31:0]: 32-bit unsigned operand.
+    op[1:0]: operation select - 2'b00 add, 2'b01 multiply, 2'b10 minimum.
+Output ports:
+    result[63:0]: 64-bit result (wide enough to hold the 32x32 product).
+    result_valid: asserted for one clock cycle when result is valid.
+
+Implementation:
+Register the operation so that one cycle after valid_in is sampled high, result holds the computed value and result_valid is asserted for that cycle. For op=00 output the zero-extended sum a+b; for op=01 output the full 64-bit unsigned product a*b; for op=10 output the smaller of a and b (zero-extended). For any other op code output all ones.
+
+Give me the complete code.

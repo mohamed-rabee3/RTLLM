@@ -1,0 +1,15 @@
+Please act as a professional verilog designer.
+
+Implement a combinational integer square-root module that takes a 16-bit input and produces the 8-bit floor of its square root.
+
+Module name:
+    SQRT
+Input ports:
+    value[15:0]: 16-bit unsigned radicand.
+Output ports:
+    result[7:0]: 8-bit result equal to floor(sqrt(value)).
+
+Implementation:
+Use the classic non-restoring / bit-pair square-root algorithm. Process the 16-bit input two bits at a time from the most significant pair down. Maintain a partial root and a running remainder: at each of the 8 steps, shift in the next two bits, form the trial subtractor (root shifted left, with a 1 appended), and if the remainder is at least the trial value subtract it and set the next root bit to 1, otherwise set it to 0. After 8 steps the accumulated root is floor(sqrt(value)). The design is purely combinational.
+
+Give me the complete code.

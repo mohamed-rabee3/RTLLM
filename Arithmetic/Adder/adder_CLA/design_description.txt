@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a carry-lookahead (CLA) integer adder that adds two 16-bit operands and produces a 17-bit result so the carry-out is preserved.
+
+Module name:
+    add_CLA
+Input ports:
+    a[15:0]: 16-bit operand.
+    b[15:0]: 16-bit operand.
+Output ports:
+    result[16:0]: 17-bit sum of a and b.
+
+Implementation:
+For each bit i compute the generate term g[i]=a[i]&b[i] and the propagate term p[i]=a[i]^b[i]. Build the carry chain from the lookahead equation c[i+1]=g[i]|(p[i]&c[i]) with c[0]=0, then form each sum bit as p[i]^c[i]. The final carry c[16] becomes result[16]. The design is purely combinational.
+
+Give me the complete code.

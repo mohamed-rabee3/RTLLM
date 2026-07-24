@@ -1,0 +1,6 @@
+As a digital design expert, construct a simple integer adder.
+
+use
+module name: add
+Input ports: a (16-bit [15:0]), b (16-bit[15:0])
+Output ports: result (17-bit [16:0])

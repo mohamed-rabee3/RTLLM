@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a simple integer adder that adds two 16-bit operands and produces a 17-bit result so that the carry-out is preserved.
+
+Module name:
+    add
+Input ports:
+    a[15:0]: 16-bit operand.
+    b[15:0]: 16-bit operand.
+Output ports:
+    result[16:0]: 17-bit sum of a and b.
+
+Implementation:
+The module computes result = a + b. Both operands are zero-extended to 17 bits before the addition so the 17-bit output captures any carry-out. The design is purely combinational.
+
+Give me the complete code.

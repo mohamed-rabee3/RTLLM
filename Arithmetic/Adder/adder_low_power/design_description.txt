@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a low-power integer adder that adds two 16-bit operands and produces a 17-bit result so the carry-out is preserved.
+
+Module name:
+    add_low_power
+Input ports:
+    a[15:0]: 16-bit operand.
+    b[15:0]: 16-bit operand.
+Output ports:
+    result[16:0]: 17-bit sum of a and b.
+
+Implementation:
+Compute result = a + b with both operands zero-extended to 17 bits. A compact ripple-carry style keeps switching activity and glitching low, which reduces dynamic power. The design is purely combinational.
+
+Give me the complete code.

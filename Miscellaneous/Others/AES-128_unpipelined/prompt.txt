@@ -1,0 +1,8 @@
+As a digital design expert, construct a non-pipelined Advanced Encryption Standard (AES-128 encryption) with
+
+module name: AES_Encrypt_un
+Input ports: clk, rst, start, in (128 bits)[127:0], key (128 bits)[127:0]
+Output ports: out (128 bits)[127:0], done
+
+
+feel free to use structural design which composed of simpler modules.

@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a radix-4 Booth integer multiplier that multiplies two 16-bit unsigned operands and produces a 32-bit product.
+
+Module name:
+    mul_booth
+Input ports:
+    a[15:0]: 16-bit unsigned operand.
+    b[15:0]: 16-bit unsigned operand.
+Output ports:
+    result[31:0]: 32-bit product of a and b.
+
+Implementation:
+Apply radix-4 (modified) Booth encoding. Zero-extend the operands so the unsigned product is computed correctly, then scan the multiplier two bits at a time (with the overlapping previous bit) to select one of {0, +A, +2A, -A, -2A} as each partial product, shift it into place, and accumulate. Eight partial products cover the 16-bit multiplier. Output the low 32 bits of the accumulated sum. The design is purely combinational.
+
+Give me the complete code.

@@ -1,0 +1,6 @@
+As a digital design expert, construct a 4-Tap Symmetric FIR Filter in Verilog code. Use a signed Q8.8 format for the coefficients. Use the standard coefficient values.
+use
+module name: fir_interpolator
+Input ports: data_in (16-bit)[15:0]
+Output ports: data_out (16-bit)[15:0]
+Control signals: clk, rst (active high), valid_in (active for one clock cycle), and valid out (active for one clock cycle)

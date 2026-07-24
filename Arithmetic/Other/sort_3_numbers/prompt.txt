@@ -1,0 +1,7 @@
+As a digital design expert, construct a sorting module to sort 3 numbers in Verilog code. Represent the input numbers in 10-bit unsigned integer format.
+
+
+use
+module name: sorting_3_numbers
+Input ports: a1 (10-bit), a2 (10-bit), a3 (10-bit)
+Output ports: max (10-bit), med (10-bit), min (10-bit)

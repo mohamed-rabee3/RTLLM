@@ -1,0 +1,24 @@
+Please act as a professional verilog designer.
+
+Implement a SHA-256 hash engine consisting of a core plus a register-mapped wrapper.
+
+Core module name:
+    sha256_core
+Input ports:
+    clk, reset_n (asynchronous active-low reset), init, next, mode, block[511:0].
+Output ports:
+    ready, digest_valid, digest[255:0].
+Behaviour: init starts a fresh hash from the SHA-256 initial constants (use once per message); next continues the hash from the current digest state (use for blocks 2..N). ready is high when idle/done; digest holds the running hash.
+
+Wrapper module name:
+    sha256
+Input ports:
+    clk, reset_n, cs (chip select), we (1=write, 0=read), address[7:0], write_data[31:0].
+Output ports:
+    read_data[31:0], error.
+Register map: 0x00/0x01 name, 0x02 version, 0x08 control (bit0 init, bit1 next, bit2 mode), 0x09 status (bit0 ready, bit1 valid), 0x10-0x1f the sixteen 512-bit block words, 0x20-0x27 the eight 256-bit digest words. error is asserted for accesses to undefined addresses.
+
+Implementation:
+Follow FIPS-180-4 SHA-256: expand the 16-word block into 64 words, run 64 rounds of the compression function over the eight working variables using the K constants, then add the result into the hash state. The wrapper latches block words and control writes, pulses init/next into the core, and muxes read_data from the status/digest/identification registers.
+
+Give me the complete code.

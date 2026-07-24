@@ -1,0 +1,16 @@
+Please act as a professional verilog designer.
+
+Implement a fixed-point divider. It divides two signed 16-bit inputs and produces a 16-bit quotient in signed Qs8.7 format (7 fractional bits).
+
+Module name:
+    divider
+Input ports:
+    dividend[15:0]: signed 16-bit dividend.
+    divisor[15:0]: signed 16-bit divisor.
+Output ports:
+    quotient[15:0]: signed 16-bit quotient in Qs8.7 format.
+
+Implementation:
+Shift the dividend left by 7 bits (multiply by 128) to move it into Q8.7 alignment, then perform a signed division by the divisor. Truncation follows normal signed integer division (toward zero). If the divisor is zero, output 16'hFFFF as an error value. The design is purely combinational.
+
+Give me the complete code.

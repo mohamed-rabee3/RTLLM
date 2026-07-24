@@ -1,0 +1,19 @@
+Please act as a professional verilog designer.
+
+Implement an interpolation filter with an interpolation factor of 8. Given a stream of input samples it produces, between each pair of consecutive samples, the intermediate up-sampled points, so that the output is a factor-8 interpolation of the input.
+
+Module name:
+    fir_interpolator
+Input ports:
+    clk: clock.
+    rst: synchronous active-high reset.
+    valid_in: asserted for one clock cycle per input sample.
+    data_in[15:0]: signed 16-bit input sample.
+Output ports:
+    valid_out: asserted for one clock cycle per output sample.
+    data_out[15:0]: signed 16-bit interpolated output sample.
+
+Implementation:
+Use a triangular (linear) interpolation kernel for factor L=8. Emit the first input sample directly. For every following input sample, emit the L intermediate points that linearly bridge the previous sample to the new one: for phase k = 1..L the output is prev + (cur - prev)*k/L, using signed truncating division. Each output is presented on data_out with valid_out asserted for one cycle. Two input samples therefore yield L+1 outputs.
+
+Give me the complete code.
