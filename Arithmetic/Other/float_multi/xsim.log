@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Sun Jun 28 21:51:10 2026
-# Process ID         : 31364
+# Start of session at: Tue Oct 13 00:27:01 2026
+# Process ID         : 39056
 # Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/float_multi
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
 # Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/float_multi/xsim.log
@@ -17,15 +17,15 @@
 # CPU Physical cores : 14
 # CPU Logical cores  : 28
 # Host memory        : 17082 MB
-# Swap memory        : 17082 MB
-# Total Virtual      : 34165 MB
-# Available Virtual  : 5805 MB
+# Swap memory        : 22679 MB
+# Total Virtual      : 39761 MB
+# Available Virtual  : 7130 MB
 #-----------------------------------------------------------
 source xsim.dir/rtllm_snap/xsim_script.tcl
 # xsim {rtllm_snap} -autoloadwcfg -runall
 Time resolution is 1 ps
 run -all
-=========== Test completed with           1/20 failures ===========
+=========== Your Design Passed ===========
 $finish called at time : 243 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/float_multi/testbench.v" Line 35
 exit
-INFO: [Common 17-206] Exiting xsim at Sun Jun 28 21:51:12 2026...
+INFO: [Common 17-206] Exiting xsim at Tue Oct 13 00:27:03 2026...

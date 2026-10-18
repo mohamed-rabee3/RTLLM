@@ -1,0 +1,72 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Oct 12 23:22:46 2026
+# Process ID         : 9048
+# Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/binary to BCD 16 bit
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
+# Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/binary to BCD 16 bit/xsim.log
+# Journal file       : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/binary to BCD 16 bit\xsim.jou
+# Running On         : DESKTOP-P3DMPUE
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 22631
+# Processor Detail   : Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+# CPU Frequency      : 2394 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 28
+# Host memory        : 17082 MB
+# Swap memory        : 22679 MB
+# Total Virtual      : 39761 MB
+# Available Virtual  : 7721 MB
+#-----------------------------------------------------------
+source xsim.dir/rtllm_snap/xsim_script.tcl
+# xsim {rtllm_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+[25000] Reset complete, starting tests...
+
+[35000] Running Random Test 0
+[45000] PASS: Binary=1111100111100011 (in decimal 63971) -> BCD=63971
+
+[55000] Running Random Test 1
+[65000] PASS: Binary=0000100100001011 (in decimal 2315) -> BCD=02315
+
+[75000] Running Random Test 2
+[85000] PASS: Binary=0001101111010100 (in decimal 7124) -> BCD=07124
+
+[95000] Running Random Test 3
+[105000] PASS: Binary=0010111111110110 (in decimal 12278) -> BCD=12278
+
+[115000] Running Random Test 4
+[125000] PASS: Binary=0011000111000101 (in decimal 12741) -> BCD=12741
+
+[135000] Running Random Test 5
+[145000] PASS: Binary=0110001011000001 (in decimal 25281) -> BCD=25281
+
+[155000] Running Random Test 6
+[165000] PASS: Binary=1111100001000011 (in decimal 63555) -> BCD=63555
+
+[175000] Running Random Test 7
+[185000] PASS: Binary=0010101110101000 (in decimal 11176) -> BCD=11176
+
+[195000] Running Random Test 8
+[205000] PASS: Binary=0110101111001101 (in decimal 27597) -> BCD=27597
+
+[215000] Running Random Test 9
+[225000] PASS: Binary=0001010000010111 (in decimal 5143) -> BCD=05143
+
+=================================================
+TEST SUMMARY
+=================================================
+Tests Run    : 10
+Tests Passed : 10
+Tests Failed : 0
+=================================================
+===========Your Design Passed===========
+=================================================
+
+$finish called at time : 245 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/binary to BCD 16 bit/testbench.v" Line 219
+exit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 23:22:48 2026...

@@ -1,0 +1,60 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Oct 12 22:37:38 2026
+# Process ID         : 24424
+# Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
+# Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/xsim.log
+# Journal file       : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter\xsim.jou
+# Running On         : DESKTOP-P3DMPUE
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 22631
+# Processor Detail   : Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+# CPU Frequency      : 2394 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 28
+# Host memory        : 17082 MB
+# Swap memory        : 19259 MB
+# Total Virtual      : 36342 MB
+# Available Virtual  : 6158 MB
+#-----------------------------------------------------------
+source xsim.dir/rtllm_snap/xsim_script.tcl
+# xsim {rtllm_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+Error: Mismatch at 0 Expected=0002 Got=xxxx
+Time: 35 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+Error: Mismatch at 1 Expected=000a Got=0007
+Time: 45 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+WARNING: File descriptor (-20000) passed to $fwrite is not valid. Please compile the design with -debug for source location information.
+WARNING: File/Multi-channel descriptor (-20000) passed to $fclose is not valid. Please compile the design with -debug for source location information.
+Error: Mismatch at 2 Expected=0016 Got=0014
+Time: 55 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+WARNING: File descriptor (-20000) passed to $fwrite is not valid. Please compile the design with -debug for source location information.
+WARNING: File/Multi-channel descriptor (-20000) passed to $fclose is not valid. Please compile the design with -debug for source location information.
+Error: Mismatch at 3 Expected=0025 Got=0023
+Time: 65 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+WARNING: File descriptor (-20000) passed to $fwrite is not valid. Please compile the design with -debug for source location information.
+WARNING: File/Multi-channel descriptor (-20000) passed to $fclose is not valid. Please compile the design with -debug for source location information.
+Error: Mismatch at 4 Expected=0034 Got=0032
+Time: 75 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+WARNING: File descriptor (-20000) passed to $fwrite is not valid. Please compile the design with -debug for source location information.
+WARNING: File/Multi-channel descriptor (-20000) passed to $fclose is not valid. Please compile the design with -debug for source location information.
+Error: Mismatch at 5 Expected=0043 Got=0041
+Time: 85 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+WARNING: File descriptor (-20000) passed to $fwrite is not valid. Please compile the design with -debug for source location information.
+WARNING: File/Multi-channel descriptor (-20000) passed to $fclose is not valid. Please compile the design with -debug for source location information.
+Error: Mismatch at 6 Expected=0052 Got=0050
+Time: 95 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+WARNING: File descriptor (-20000) passed to $fwrite is not valid. Please compile the design with -debug for source location information.
+WARNING: File/Multi-channel descriptor (-20000) passed to $fclose is not valid. Please compile the design with -debug for source location information.
+Error: Mismatch at 7 Expected=0061 Got=005f
+Time: 105 ns  Iteration: 0  Process: /FIR_tb/Always141_8  Scope: FIR_tb  File: D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v Line: 146
+WARNING: File descriptor (-20000) passed to $fwrite is not valid. Please compile the design with -debug for source location information.
+===========Your Design Passed===========
+$finish called at time : 105 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/FIR_Filter/testbench.v" Line 161
+exit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 22:37:40 2026...

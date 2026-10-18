@@ -1,0 +1,42 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Oct 12 23:20:20 2026
+# Process ID         : 2372
+# Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Multiplier/multiplier_booth
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
+# Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Multiplier/multiplier_booth/xsim.log
+# Journal file       : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Multiplier/multiplier_booth\xsim.jou
+# Running On         : DESKTOP-P3DMPUE
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 22631
+# Processor Detail   : Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+# CPU Frequency      : 2394 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 28
+# Host memory        : 17082 MB
+# Swap memory        : 22679 MB
+# Total Virtual      : 39761 MB
+# Available Virtual  : 7693 MB
+#-----------------------------------------------------------
+source xsim.dir/rtllm_snap/xsim_script.tcl
+# xsim {rtllm_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: 63971 * 2315 -> 148092865
+PASS: 7124 * 12278 -> 87468472
+PASS: 12741 * 25281 -> 322105221
+PASS: 63555 * 11176 -> 710290680
+PASS: 27597 * 5143 -> 141931371
+PASS: 23455 * 40338 -> 946127790
+PASS: 30424 * 21474 -> 653324976
+PASS: 51514 * 58021 -> 2988893794
+PASS: 26617 * 9433 -> 251078161
+PASS: 32823 * 57041 -> 1872256743
+Total errors = 0
+===========Your Design Passed===========
+$finish called at time : 10 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Multiplier/multiplier_booth/testbench.v" Line 68
+exit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 23:20:22 2026...

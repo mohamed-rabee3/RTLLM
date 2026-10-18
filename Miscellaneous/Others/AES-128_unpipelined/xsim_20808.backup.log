@@ -1,0 +1,606 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Oct 12 22:20:01 2026
+# Process ID         : 20808
+# Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/AES-128_unpipelined
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
+# Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/AES-128_unpipelined/xsim.log
+# Journal file       : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/AES-128_unpipelined\xsim.jou
+# Running On         : DESKTOP-P3DMPUE
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 22631
+# Processor Detail   : Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+# CPU Frequency      : 2394 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 28
+# Host memory        : 17082 MB
+# Swap memory        : 19259 MB
+# Total Virtual      : 36342 MB
+# Available Virtual  : 6296 MB
+#-----------------------------------------------------------
+source xsim.dir/rtllm_snap/xsim_script.tcl
+# xsim {rtllm_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+============================================================
+AES Encryption Test Bench (CORRECTED)
+============================================================
+Parameters:
+  Clock period: 10 ns
+  Key setup cycles: 2
+  Pipeline depth: 11 cycles
+  Number of test vectors: 42
+============================================================
+Reset deasserted at time 20000 ns
+Reset completed at time 40000 ns
+
+=== RUNNING INDIVIDUAL TESTS ===
+============================================================
+Test #1:
+  Key:       00000000000000000000000000000000
+  Plaintext: 9798c4640bad75c7c3227db910174e72
+  Expected:  a9a1631bf4996954ebc093957b234589
+  Key loaded, EN asserted at time 240000 ns
+  Plaintext loaded at time 256000 ns
+  Output captured at time 366000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: a9a1631bf4996954ebc093957b234589
+    Got:      00000000000000000000000000000000
+============================================================
+Test #2:
+  Key:       00000000000000000000000000000000
+  Plaintext: 96ab5c2ff612d9dfaae8c31f30c42168
+  Expected:  ff4f8391a6a40ca5b25d23bedd44a597
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 776000 ns
+  Plaintext loaded at time 796000 ns
+  Output captured at time 906000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: ff4f8391a6a40ca5b25d23bedd44a597
+    Got:      00000000000000000000000000000000
+============================================================
+Test #3:
+  Key:       00000000000000000000000000000000
+  Plaintext: 6a118a874519e64e9963798a503f1d35
+  Expected:  dc43be40be0e53712f7e2bf5ca707209
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 1316000 ns
+  Plaintext loaded at time 1336000 ns
+  Output captured at time 1446000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: dc43be40be0e53712f7e2bf5ca707209
+    Got:      00000000000000000000000000000000
+============================================================
+Test #4:
+  Key:       00000000000000000000000000000000
+  Plaintext: cb9fceec81286ca3e989bd979b0cb284
+  Expected:  92beedab1895a94faa69b632e5cc47ce
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 1856000 ns
+  Plaintext loaded at time 1876000 ns
+  Output captured at time 1986000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 92beedab1895a94faa69b632e5cc47ce
+    Got:      00000000000000000000000000000000
+============================================================
+Test #5:
+  Key:       00000000000000000000000000000000
+  Plaintext: b26aeb1874e47ca8358ff22378f09144
+  Expected:  459264f4798f6a78bacb89c15ed3d601
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 2396000 ns
+  Plaintext loaded at time 2416000 ns
+  Output captured at time 2526000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 459264f4798f6a78bacb89c15ed3d601
+    Got:      00000000000000000000000000000000
+============================================================
+Test #6:
+  Key:       00000000000000000000000000000000
+  Plaintext: 58c8e00b2631686d54eab84b91f0aca1
+  Expected:  08a4e2efec8a8e3312ca7460b9040bbf
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 2936000 ns
+  Plaintext loaded at time 2956000 ns
+  Output captured at time 3066000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 08a4e2efec8a8e3312ca7460b9040bbf
+    Got:      00000000000000000000000000000000
+============================================================
+Test #7:
+  Key:       80000000000000000000000000000000
+  Plaintext: 9798c4640bad75c7c3227db910174e72
+  Expected:  8ee2abbee0fca82e745ccc3a76265a9b
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 3476000 ns
+  Plaintext loaded at time 3496000 ns
+  Output captured at time 3606000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 8ee2abbee0fca82e745ccc3a76265a9b
+    Got:      00000000000000000000000000000000
+============================================================
+Test #8:
+  Key:       80000000000000000000000000000000
+  Plaintext: 96ab5c2ff612d9dfaae8c31f30c42168
+  Expected:  1a22a7318c2187aa55983eb11baf8a7c
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 4016000 ns
+  Plaintext loaded at time 4036000 ns
+  Output captured at time 4146000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 1a22a7318c2187aa55983eb11baf8a7c
+    Got:      00000000000000000000000000000000
+============================================================
+Test #9:
+  Key:       80000000000000000000000000000000
+  Plaintext: 6a118a874519e64e9963798a503f1d35
+  Expected:  68b3b0147b43473a9f29a165cfc69c78
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 4556000 ns
+  Plaintext loaded at time 4576000 ns
+  Output captured at time 4686000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 68b3b0147b43473a9f29a165cfc69c78
+    Got:      00000000000000000000000000000000
+============================================================
+Test #10:
+  Key:       80000000000000000000000000000000
+  Plaintext: cb9fceec81286ca3e989bd979b0cb284
+  Expected:  7802cde1b7a149572ee05c7db5cb2e6c
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 5096000 ns
+  Plaintext loaded at time 5116000 ns
+  Output captured at time 5226000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 7802cde1b7a149572ee05c7db5cb2e6c
+    Got:      00000000000000000000000000000000
+============================================================
+Test #11:
+  Key:       80000000000000000000000000000000
+  Plaintext: b26aeb1874e47ca8358ff22378f09144
+  Expected:  5c38c5ea9efa16d087099669300ec68a
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 5636000 ns
+  Plaintext loaded at time 5656000 ns
+  Output captured at time 5766000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 5c38c5ea9efa16d087099669300ec68a
+    Got:      00000000000000000000000000000000
+============================================================
+Test #12:
+  Key:       80000000000000000000000000000000
+  Plaintext: 58c8e00b2631686d54eab84b91f0aca1
+  Expected:  74dbabb2128debd217d5d44e3c91afce
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 6176000 ns
+  Plaintext loaded at time 6196000 ns
+  Output captured at time 6306000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 74dbabb2128debd217d5d44e3c91afce
+    Got:      00000000000000000000000000000000
+============================================================
+Test #13:
+  Key:       c0000000000000000000000000000000
+  Plaintext: 9798c4640bad75c7c3227db910174e72
+  Expected:  f44a89396ff79904bc79febf88ab05ce
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 6716000 ns
+  Plaintext loaded at time 6736000 ns
+  Output captured at time 6846000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: f44a89396ff79904bc79febf88ab05ce
+    Got:      00000000000000000000000000000000
+============================================================
+Test #14:
+  Key:       c0000000000000000000000000000000
+  Plaintext: 96ab5c2ff612d9dfaae8c31f30c42168
+  Expected:  809e1c2259c781a706f7acd0f426b059
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 7256000 ns
+  Plaintext loaded at time 7276000 ns
+  Output captured at time 7386000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 809e1c2259c781a706f7acd0f426b059
+    Got:      00000000000000000000000000000000
+============================================================
+Test #15:
+  Key:       c0000000000000000000000000000000
+  Plaintext: 6a118a874519e64e9963798a503f1d35
+  Expected:  38e92afdd56dbe444e6004c5c819ab93
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 7796000 ns
+  Plaintext loaded at time 7816000 ns
+  Output captured at time 7926000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 38e92afdd56dbe444e6004c5c819ab93
+    Got:      00000000000000000000000000000000
+============================================================
+Test #16:
+  Key:       c0000000000000000000000000000000
+  Plaintext: cb9fceec81286ca3e989bd979b0cb284
+  Expected:  d2717e54aa90743a2e200acd7a36e2f4
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 8336000 ns
+  Plaintext loaded at time 8356000 ns
+  Output captured at time 8466000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: d2717e54aa90743a2e200acd7a36e2f4
+    Got:      00000000000000000000000000000000
+============================================================
+Test #17:
+  Key:       c0000000000000000000000000000000
+  Plaintext: b26aeb1874e47ca8358ff22378f09144
+  Expected:  3dc1575c868f1b28c7fcd2a524ef9475
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 8876000 ns
+  Plaintext loaded at time 8896000 ns
+  Output captured at time 9006000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 3dc1575c868f1b28c7fcd2a524ef9475
+    Got:      00000000000000000000000000000000
+============================================================
+Test #18:
+  Key:       c0000000000000000000000000000000
+  Plaintext: 58c8e00b2631686d54eab84b91f0aca1
+  Expected:  d49419d76d76fa19febec7e74c639f68
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 9416000 ns
+  Plaintext loaded at time 9436000 ns
+  Output captured at time 9546000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: d49419d76d76fa19febec7e74c639f68
+    Got:      00000000000000000000000000000000
+============================================================
+Test #19:
+  Key:       e0000000000000000000000000000000
+  Plaintext: 9798c4640bad75c7c3227db910174e72
+  Expected:  f75b8704ce586245dbf5d5f1d804b9fb
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 9956000 ns
+  Plaintext loaded at time 9976000 ns
+  Output captured at time 10086000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: f75b8704ce586245dbf5d5f1d804b9fb
+    Got:      00000000000000000000000000000000
+============================================================
+Test #20:
+  Key:       e0000000000000000000000000000000
+  Plaintext: 96ab5c2ff612d9dfaae8c31f30c42168
+  Expected:  c2eb78d8ee4908c3acfaa5c6bdba8e0f
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 10496000 ns
+  Plaintext loaded at time 10516000 ns
+  Output captured at time 10626000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: c2eb78d8ee4908c3acfaa5c6bdba8e0f
+    Got:      00000000000000000000000000000000
+============================================================
+Test #21:
+  Key:       e0000000000000000000000000000000
+  Plaintext: 6a118a874519e64e9963798a503f1d35
+  Expected:  f526eea3a4ed5b3edeb7ca02b726d96a
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 11036000 ns
+  Plaintext loaded at time 11056000 ns
+  Output captured at time 11166000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: f526eea3a4ed5b3edeb7ca02b726d96a
+    Got:      00000000000000000000000000000000
+============================================================
+Test #22:
+  Key:       e0000000000000000000000000000000
+  Plaintext: cb9fceec81286ca3e989bd979b0cb284
+  Expected:  08b2f40231b2ed9a9eaf4cd926697564
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 11576000 ns
+  Plaintext loaded at time 11596000 ns
+  Output captured at time 11706000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 08b2f40231b2ed9a9eaf4cd926697564
+    Got:      00000000000000000000000000000000
+============================================================
+Test #23:
+  Key:       e0000000000000000000000000000000
+  Plaintext: b26aeb1874e47ca8358ff22378f09144
+  Expected:  362bbe98ccdacd5d9318e6f7f224f8d4
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 12116000 ns
+  Plaintext loaded at time 12136000 ns
+  Output captured at time 12246000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 362bbe98ccdacd5d9318e6f7f224f8d4
+    Got:      00000000000000000000000000000000
+============================================================
+Test #24:
+  Key:       e0000000000000000000000000000000
+  Plaintext: 58c8e00b2631686d54eab84b91f0aca1
+  Expected:  1fe2bedc38ccac38eb5e694f326590d0
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 12656000 ns
+  Plaintext loaded at time 12676000 ns
+  Output captured at time 12786000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 1fe2bedc38ccac38eb5e694f326590d0
+    Got:      00000000000000000000000000000000
+============================================================
+Test #25:
+  Key:       f0000000000000000000000000000000
+  Plaintext: 9798c4640bad75c7c3227db910174e72
+  Expected:  c3983992a27223402d08f425a18b3c2c
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 13196000 ns
+  Plaintext loaded at time 13216000 ns
+  Output captured at time 13326000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: c3983992a27223402d08f425a18b3c2c
+    Got:      00000000000000000000000000000000
+============================================================
+Test #26:
+  Key:       f0000000000000000000000000000000
+  Plaintext: 96ab5c2ff612d9dfaae8c31f30c42168
+  Expected:  79f968846592f4547e1e308d6b8529ac
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 13736000 ns
+  Plaintext loaded at time 13756000 ns
+  Output captured at time 13866000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 79f968846592f4547e1e308d6b8529ac
+    Got:      00000000000000000000000000000000
+============================================================
+Test #27:
+  Key:       f0000000000000000000000000000000
+  Plaintext: 6a118a874519e64e9963798a503f1d35
+  Expected:  abf3c93618bf47984ac07abd1af4fac5
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 14276000 ns
+  Plaintext loaded at time 14296000 ns
+  Output captured at time 14406000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: abf3c93618bf47984ac07abd1af4fac5
+    Got:      00000000000000000000000000000000
+============================================================
+Test #28:
+  Key:       f0000000000000000000000000000000
+  Plaintext: cb9fceec81286ca3e989bd979b0cb284
+  Expected:  0d8adf415e6234e06d10ff916394e833
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 14816000 ns
+  Plaintext loaded at time 14836000 ns
+  Output captured at time 14946000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 0d8adf415e6234e06d10ff916394e833
+    Got:      00000000000000000000000000000000
+============================================================
+Test #29:
+  Key:       f0000000000000000000000000000000
+  Plaintext: b26aeb1874e47ca8358ff22378f09144
+  Expected:  0162702daa4d55bdf3f7e75c765b1e99
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 15356000 ns
+  Plaintext loaded at time 15376000 ns
+  Output captured at time 15486000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 0162702daa4d55bdf3f7e75c765b1e99
+    Got:      00000000000000000000000000000000
+============================================================
+Test #30:
+  Key:       f0000000000000000000000000000000
+  Plaintext: 58c8e00b2631686d54eab84b91f0aca1
+  Expected:  ea07467ce210bcbb480ce862e97d8e04
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 15896000 ns
+  Plaintext loaded at time 15916000 ns
+  Output captured at time 16026000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: ea07467ce210bcbb480ce862e97d8e04
+    Got:      00000000000000000000000000000000
+============================================================
+Test #31:
+  Key:       f8000000000000000000000000000000
+  Plaintext: 9798c4640bad75c7c3227db910174e72
+  Expected:  2193754dbf9cfd91f78a0775aa398f18
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 16436000 ns
+  Plaintext loaded at time 16456000 ns
+  Output captured at time 16566000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 2193754dbf9cfd91f78a0775aa398f18
+    Got:      00000000000000000000000000000000
+============================================================
+Test #32:
+  Key:       f8000000000000000000000000000000
+  Plaintext: 96ab5c2ff612d9dfaae8c31f30c42168
+  Expected:  eeaed8e67358288398edf2090afcb0cb
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 16976000 ns
+  Plaintext loaded at time 16996000 ns
+  Output captured at time 17106000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: eeaed8e67358288398edf2090afcb0cb
+    Got:      00000000000000000000000000000000
+============================================================
+Test #33:
+  Key:       f8000000000000000000000000000000
+  Plaintext: 6a118a874519e64e9963798a503f1d35
+  Expected:  6c228a20f6d86b261f93fbaaa5d047fa
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 17516000 ns
+  Plaintext loaded at time 17536000 ns
+  Output captured at time 17646000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 6c228a20f6d86b261f93fbaaa5d047fa
+    Got:      00000000000000000000000000000000
+============================================================
+Test #34:
+  Key:       f8000000000000000000000000000000
+  Plaintext: cb9fceec81286ca3e989bd979b0cb284
+  Expected:  eefb9ebb6bfaec0381b84ba7171de5ec
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 18056000 ns
+  Plaintext loaded at time 18076000 ns
+  Output captured at time 18186000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: eefb9ebb6bfaec0381b84ba7171de5ec
+    Got:      00000000000000000000000000000000
+============================================================
+Test #35:
+  Key:       f8000000000000000000000000000000
+  Plaintext: b26aeb1874e47ca8358ff22378f09144
+  Expected:  b869d89fc937d6c35d3a28ec942f59aa
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 18596000 ns
+  Plaintext loaded at time 18616000 ns
+  Output captured at time 18726000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: b869d89fc937d6c35d3a28ec942f59aa
+    Got:      00000000000000000000000000000000
+============================================================
+Test #36:
+  Key:       f8000000000000000000000000000000
+  Plaintext: 58c8e00b2631686d54eab84b91f0aca1
+  Expected:  ffc64d053f54c34b572a9e5797d4528b
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 19136000 ns
+  Plaintext loaded at time 19156000 ns
+  Output captured at time 19266000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: ffc64d053f54c34b572a9e5797d4528b
+    Got:      00000000000000000000000000000000
+============================================================
+Test #37:
+  Key:       fc000000000000000000000000000000
+  Plaintext: 9798c4640bad75c7c3227db910174e72
+  Expected:  daf7abad45e0208424c592fb58078340
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 19676000 ns
+  Plaintext loaded at time 19696000 ns
+  Output captured at time 19806000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: daf7abad45e0208424c592fb58078340
+    Got:      00000000000000000000000000000000
+============================================================
+Test #38:
+  Key:       fc000000000000000000000000000000
+  Plaintext: 96ab5c2ff612d9dfaae8c31f30c42168
+  Expected:  9ff25a905ee66d73a9eb45caa8ecf59c
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 20216000 ns
+  Plaintext loaded at time 20236000 ns
+  Output captured at time 20346000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 9ff25a905ee66d73a9eb45caa8ecf59c
+    Got:      00000000000000000000000000000000
+============================================================
+Test #39:
+  Key:       fc000000000000000000000000000000
+  Plaintext: 6a118a874519e64e9963798a503f1d35
+  Expected:  568e92e3ff944472c825790a81fc77d4
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 20756000 ns
+  Plaintext loaded at time 20776000 ns
+  Output captured at time 20886000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: 568e92e3ff944472c825790a81fc77d4
+    Got:      00000000000000000000000000000000
+============================================================
+Test #40:
+  Key:       fc000000000000000000000000000000
+  Plaintext: cb9fceec81286ca3e989bd979b0cb284
+  Expected:  e8f64cf956a13b8195906587be57f387
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 21296000 ns
+  Plaintext loaded at time 21316000 ns
+  Output captured at time 21426000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: e8f64cf956a13b8195906587be57f387
+    Got:      00000000000000000000000000000000
+============================================================
+Test #41:
+  Key:       fc000000000000000000000000000000
+  Plaintext: b26aeb1874e47ca8358ff22378f09144
+  Expected:  b2725108dfedcce3505cc8670c8031e7
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 21836000 ns
+  Plaintext loaded at time 21856000 ns
+  Output captured at time 21966000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: b2725108dfedcce3505cc8670c8031e7
+    Got:      00000000000000000000000000000000
+============================================================
+Test #42:
+  Key:       fc000000000000000000000000000000
+  Plaintext: 58c8e00b2631686d54eab84b91f0aca1
+  Expected:  eebafece675669ab7dcfa1d86e692f93
+  Clearing pipeline before new key...
+  Key loaded, EN asserted at time 22376000 ns
+  Plaintext loaded at time 22396000 ns
+  Output captured at time 22506000 ns
+  Output:    00000000000000000000000000000000
+  Result: ? FAILED
+    Expected: eebafece675669ab7dcfa1d86e692f93
+    Got:      00000000000000000000000000000000
+
+============================================================
+TEST SUMMARY
+============================================================
+Total tests:  42
+Passed:       0
+Failed:       42
+Success rate: 0.0%
+============================================================
+===========Error===========
+
+Possible issues to check:
+1. Key expansion module for key = 0xfc000000000000000000000000000000
+2. Pipeline initialization after reset
+3. Round key ordering (Key0 to Key10)
+4. initial_rnd, Round_Top, and final_rnd modules
+============================================================
+Simulation completed at time 22806000 ns
+$finish called at time : 22906 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/AES-128_unpipelined/testbench.v" Line 374
+exit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 22:20:04 2026...

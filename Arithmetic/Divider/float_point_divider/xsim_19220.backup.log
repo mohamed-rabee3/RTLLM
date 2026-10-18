@@ -1,0 +1,65 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Oct 12 22:08:14 2026
+# Process ID         : 19220
+# Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Divider/float_point_divider
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
+# Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Divider/float_point_divider/xsim.log
+# Journal file       : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Divider/float_point_divider\xsim.jou
+# Running On         : DESKTOP-P3DMPUE
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 22631
+# Processor Detail   : Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+# CPU Frequency      : 2394 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 28
+# Host memory        : 17082 MB
+# Swap memory        : 19259 MB
+# Total Virtual      : 36342 MB
+# Available Virtual  : 6437 MB
+#-----------------------------------------------------------
+source xsim.dir/rtllm_snap/xsim_script.tcl
+# xsim {rtllm_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+ERROR:
+A=41200000 B=40000000
+DUT=40a00000 EXPECTED=40800001
+ERROR:
+A=12153524 B=c0895e81
+DUT=910b07ef EXPECTED=91000001
+ERROR:
+A=8484d609 B=b1f05663
+DUT=120d7e2c EXPECTED=12800000
+ERROR:
+A=06b97b0d B=46df998d
+DUT=7f545b77 EXPECTED=7f800000
+ERROR:
+A=b2c28465 B=89375212
+DUT=6907d15a EXPECTED=69000001
+ERROR:
+A=00f3e301 B=06d7cd0d
+DUT=3990a8a4 EXPECTED=39800001
+ERROR:
+A=3b23f176 B=1e8dcd3d
+DUT=5c13fc87 EXPECTED=5c000001
+ERROR:
+A=76d457ed B=462df78c
+DUT=701c3c80 EXPECTED=70000001
+ERROR:
+A=7cfde9f9 B=e33724c6
+DUT=d9317633 EXPECTED=d9000001
+ERROR:
+A=e2f784c5 B=d513d2aa
+DUT=4d56539d EXPECTED=4d000001
+ERROR:
+A=72aff7e5 B=bbd27277
+DUT=f6560eda EXPECTED=f6800000
+Errors = 11
+===========Error===========
+$finish called at time : 14 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Divider/float_point_divider/testbench.v" Line 141
+exit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 22:08:16 2026...

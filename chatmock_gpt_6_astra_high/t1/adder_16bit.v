@@ -1,0 +1,35 @@
+module adder_8bit (
+    input  wire [7:0] a,
+    input  wire [7:0] b,
+    input  wire       Cin,
+    output wire [7:0] y,
+    output wire       Co
+);
+    assign {Co, y} = {1'b0, a} + {1'b0, b} + {8'b0, Cin};
+endmodule
+
+module adder_16bit (
+    input  wire [15:0] a,
+    input  wire [15:0] b,
+    input  wire        Cin,
+    output wire [15:0] y,
+    output wire        Co
+);
+    wire carry_mid;
+
+    adder_8bit lower_adder (
+        .a   (a[7:0]),
+        .b   (b[7:0]),
+        .Cin (Cin),
+        .y   (y[7:0]),
+        .Co  (carry_mid)
+    );
+
+    adder_8bit upper_adder (
+        .a   (a[15:8]),
+        .b   (b[15:8]),
+        .Cin (carry_mid),
+        .y   (y[15:8]),
+        .Co  (Co)
+    );
+endmodule

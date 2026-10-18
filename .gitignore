@@ -3,3 +3,9 @@ venv/
 
 openrouter_deepseek_v4_pro_vhdl/
 openrouter_deepseek_v4_pro/
+chatmock_gpt_5_6_sol_high/
+chatmock_gpt_5_6_sol_high_vhdl/
+outputs/
+.runtime/
+opencode_glm_5_3_flash/
+opencode_glm_5_3_flash_vhdl/

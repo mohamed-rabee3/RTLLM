@@ -1,0 +1,27 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity add_low_area is
+    port (
+        a      : in  std_logic_vector(15 downto 0);
+        b      : in  std_logic_vector(15 downto 0);
+        result : out std_logic_vector(16 downto 0)
+    );
+end entity add_low_area;
+
+architecture rtl of add_low_area is
+    signal carry     : std_logic_vector(16 downto 0);
+    signal propagate : std_logic_vector(15 downto 0);
+begin
+    carry(0) <= '0';
+
+    full_adders : for i in 0 to 15 generate
+    begin
+        propagate(i) <= a(i) xor b(i);
+        result(i)    <= propagate(i) xor carry(i);
+        carry(i + 1) <= (a(i) and b(i)) or
+                        (propagate(i) and carry(i));
+    end generate full_adders;
+
+    result(16) <= carry(16);
+end architecture rtl;

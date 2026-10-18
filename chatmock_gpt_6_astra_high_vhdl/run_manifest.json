@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "backend": "chatmock",
+  "base_url": "http://127.0.0.1:8000/v1/",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "temperature": null,
+  "max_tokens": null,
+  "language": "vhdl",
+  "opencode_plan": null,
+  "trials": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+  ],
+  "design_count": 72,
+  "workers": 4,
+  "started_at": "2026-10-11T22:48:13.712087Z",
+  "completed_at": "2026-10-11T23:14:07.650823Z",
+  "generated": 360,
+  "skipped_existing": 0,
+  "failed": 0,
+  "failures": []
+}
