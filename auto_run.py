@@ -1,12 +1,17 @@
 import argparse
 import csv
+import json
 import os
 import re
 import time
 import math
 import shutil
 import subprocess
+from datetime import datetime, timezone
+
 import tqdm
+
+from benchmark_config import BENCHMARK_DESIGNS, design_category, discover_design_paths
 
 # RTLLM runner using AMD Vivado XSim (replaces Synopsys VCS / Icarus Verilog).
 XSIM_SNAPSHOT = "rtllm_snap"
@@ -141,6 +146,8 @@ def discover_trials(generation_path, max_trials=5):
 
     Supports RTLLM convention (t1..tN) and Pass1..PassN style folders.
     """
+    if not os.path.isdir(generation_path):
+        return []
     trials = []
     for i in range(1, max_trials + 1):
         trial_id = f"t{i}"
@@ -162,19 +169,43 @@ def discover_trials(generation_path, max_trials=5):
     return trials[:max_trials] if max_trials else trials
 
 
-def cal_atk(dic_list, n, k):
-    sum_list = []
-    for design in dic_list.keys():
-        c = dic_list[design]["syntax_success"]
-        sum_list.append(1 - math.comb(n - c, k) / math.comb(n, k))
-    syntax_passk = sum(sum_list) / len(dic_list)
+def calculate_pass_at_k(dic_list, n, k):
+    """Return unbiased syntax and functional pass@k estimates.
 
-    sum_list = []
-    for design in dic_list.keys():
-        c = dic_list[design]["func_success"]
-        sum_list.append(1 - math.comb(n - c, k) / math.comb(n, k))
-    func_passk = sum(sum_list) / len(dic_list)
-    print(f"\nsyntax pass@{k}: {syntax_passk:.4f},   func pass@{k}: {func_passk:.4f}")
+    The estimator is averaged across designs and assumes ``n`` independent
+    samples per design, with ``c`` successful samples for each design:
+    ``1 - C(n-c, k) / C(n, k)``.
+    """
+    if not dic_list:
+        raise ValueError("Cannot calculate pass@k for an empty result set.")
+    if n < 1:
+        raise ValueError("n must be at least 1.")
+    if not 1 <= k <= n:
+        raise ValueError(f"k must be between 1 and n (received k={k}, n={n}).")
+
+    denominator = math.comb(n, k)
+
+    def mean_score(success_key):
+        scores = []
+        for design_result in dic_list.values():
+            successes = design_result[success_key]
+            scores.append(1 - math.comb(n - successes, k) / denominator)
+        return sum(scores) / len(scores)
+
+    return {
+        "k": k,
+        "syntax_pass_at_k": mean_score("syntax_success"),
+        "func_pass_at_k": mean_score("func_success"),
+    }
+
+
+def print_pass_at_k(dic_list, n, k):
+    metrics = calculate_pass_at_k(dic_list, n, k)
+    print(
+        f"syntax pass@{k}: {metrics['syntax_pass_at_k']:.4f},   "
+        f"func pass@{k}: {metrics['func_pass_at_k']:.4f}"
+    )
+    return metrics
 
 
 def clean_sim_artifacts():
@@ -276,24 +307,11 @@ def run_vivado_sim(design_file, lang="verilog"):
     return True, output
 
 
-design_names = [
-    "adder_8bit", "adder_16bit", "adder_32bit", "adder_pipe_64bit", "adder_bcd", "sub_64bit",
-    "multi_8bit", "multi_16bit", "multi_booth_8bit", "multi_pipe_4bit", "multi_pipe_8bit",
-    "div_16bit", "radix2_div", "comparator_3bit", "comparator_4bit", "accu", "fixed_point_adder",
-    "fixed_point_substractor", "float_multi", "asyn_fifo", "LIFObuffer", "right_shifter", "LFSR",
-    "barrel_shifter", "fsm", "sequence_detector", "counter_12", "JC_counter", "ring_counter",
-    "up_down_counter", "signal_generator", "square_wave", "clkgenerator", "instr_reg", "ROM", "RAM",
-    "alu", "pe", "freq_div", "freq_divbyeven", "freq_divbyodd", "freq_divbyfrac", "calendar",
-    "traffic_light", "width_8to16", "synchronizer", "edge_detect", "pulse_detect", "parallel2serial",
-    "serial2parallel",
-]
-
-design_paths = {}
-for root, dirs, files in os.walk("."):
-    if "makefile" in files and "testbench.v" in files:
-        name = os.path.basename(root)
-        if name in design_names:
-            design_paths[name] = os.path.abspath(root)
+design_names = list(BENCHMARK_DESIGNS)
+design_paths = discover_design_paths(ROOT_DIR)
+missing_designs = [name for name in design_names if name not in design_paths]
+if missing_designs:
+    raise SystemExit(f"Error: missing benchmark design folders: {', '.join(missing_designs)}")
 
 parser = argparse.ArgumentParser(description="Evaluate generated RTL on the RTLLM benchmark via Vivado XSim.")
 parser.add_argument("--lang", choices=LANG_CONFIG.keys(), default="verilog",
@@ -303,16 +321,63 @@ parser.add_argument("--gen-dir", default=None,
                          "Defaults to the language preset (openrouter_deepseek_v4_pro, etc.).")
 parser.add_argument("--trials", type=int, default=5,
                     help="Evaluate up to this many trials (t1..tN). Default: 5.")
-parser.add_argument("--pass-k", nargs="+", type=int, default=[1, 2, 5],
-                    help="pass@k metrics to report (default: 1 2 5).")
+parser.add_argument("--pass-k", nargs="+", type=int, default=[1, 2, 3, 4, 5],
+                    help="pass@k metrics to report (default: 1 2 3 4 5).")
 parser.add_argument("--csv", default=None,
                     help="Output CSV path. Defaults to <gen_dir_basename>.csv.")
+parser.add_argument("--json", default=None,
+                    help="Detailed JSON report path. Defaults to <gen_dir_basename>_benchmark_results.json.")
+parser.add_argument("--resume-from", default=None,
+                    help="Reuse completed trial/design outcomes from an existing JSON report. "
+                         "Only normal pass/syntax-fail/functional-fail records for the same "
+                         "language, generation directory, and available generated file are reused.")
 cli_args = parser.parse_args()
 LANG = LANG_CONFIG[cli_args.lang]
 
-generation_path = os.path.abspath(cli_args.gen_dir or LANG["gen_dir"])
+generation_arg = cli_args.gen_dir or LANG["gen_dir"]
+generation_path = os.path.abspath(
+    generation_arg if os.path.isabs(generation_arg) else os.path.join(ROOT_DIR, generation_arg)
+)
 trial_ids = discover_trials(generation_path, cli_args.trials)
 result_dic = {key: {"syntax_success": 0, "func_success": 0} for key in design_names}
+trial_results = []
+resume_results = {}
+
+if cli_args.resume_from:
+    resume_path = os.path.abspath(cli_args.resume_from)
+    if os.path.isfile(resume_path):
+        try:
+            with open(resume_path, encoding="utf-8") as resume_file:
+                resume_report = json.load(resume_file)
+        except (OSError, ValueError) as exc:
+            raise SystemExit(f"Error: cannot load resume report {resume_path}: {exc}") from exc
+
+        if resume_report.get("language") != LANG["hdl"]:
+            raise SystemExit(
+                f"Error: resume report language is {resume_report.get('language')!r}, "
+                f"expected {LANG['hdl']!r}."
+            )
+        prior_generation_path = os.path.abspath(resume_report.get("generation_path") or "")
+        if os.path.normcase(prior_generation_path) != os.path.normcase(generation_path):
+            raise SystemExit(
+                f"Error: resume report generation path is {prior_generation_path!r}, "
+                f"expected {generation_path!r}."
+            )
+
+        reusable_statuses = {"passed", "syntax_failed", "functional_failed"}
+        for item in resume_report.get("trial_results") or []:
+            trial_id = item.get("trial")
+            design = item.get("design")
+            generated_file = os.path.join(generation_path, str(trial_id), f"{design}{LANG['ext']}")
+            if (
+                trial_id in trial_ids
+                and design in result_dic
+                and item.get("status") in reusable_statuses
+                and os.path.isfile(generated_file)
+                and os.path.getsize(generated_file) > 0
+            ):
+                resume_results[(trial_id, design)] = dict(item)
+        print(f"Resume mode: reusing {len(resume_results)} completed trial/design outcomes from {resume_path}.")
 
 load_env_file()
 
@@ -331,27 +396,81 @@ progress_bar = tqdm.tqdm(total=len(design_names) * max(len(trial_ids), 1))
 def test_one_trial(trial_id, result_dic):
     root_dir = os.getcwd()
     for design in design_names:
+        resume_key = (trial_id, design)
+        if resume_key in resume_results:
+            item = dict(resume_results[resume_key])
+            trial_results.append(item)
+            if item.get("syntax_pass"):
+                result_dic[design]["syntax_success"] += 1
+            if item.get("functional_pass"):
+                result_dic[design]["func_success"] += 1
+            progress_bar.update(1)
+            continue
+
         if design not in design_paths:
+            trial_results.append({
+                "trial": trial_id,
+                "design": design,
+                "category": "Unknown",
+                "syntax_pass": False,
+                "functional_pass": False,
+                "status": "missing_benchmark_design",
+                "runtime_seconds": 0.0,
+            })
             progress_bar.update(1)
             continue
 
         target_folder = design_paths[design]
         generated_file = os.path.join(generation_path, trial_id, f"{design}{LANG['ext']}")
+        category = design_category(ROOT_DIR, target_folder)
 
         if not os.path.exists(generated_file):
+            trial_results.append({
+                "trial": trial_id,
+                "design": design,
+                "category": category,
+                "syntax_pass": False,
+                "functional_pass": False,
+                "status": "missing_generated_file",
+                "runtime_seconds": 0.0,
+            })
             progress_bar.update(1)
             continue
 
-        os.chdir(target_folder)
-        syntax_ok, output = run_vivado_sim(generated_file, LANG["hdl"])
+        started = time.monotonic()
+        try:
+            os.chdir(target_folder)
+            syntax_ok, output = run_vivado_sim(generated_file, LANG["hdl"])
+            functional_ok = syntax_ok and bool(re.search(r"Your\s+Design\s+Passed", output, re.IGNORECASE))
 
-        if syntax_ok:
-            result_dic[design]["syntax_success"] += 1
-            if "Pass" in output or "pass" in output:
+            if syntax_ok:
+                result_dic[design]["syntax_success"] += 1
+            if functional_ok:
                 result_dic[design]["func_success"] += 1
 
-        clean_sim_artifacts()
-        os.chdir(root_dir)
+            trial_results.append({
+                "trial": trial_id,
+                "design": design,
+                "category": category,
+                "syntax_pass": syntax_ok,
+                "functional_pass": functional_ok,
+                "status": "passed" if functional_ok else ("functional_failed" if syntax_ok else "syntax_failed"),
+                "runtime_seconds": round(time.monotonic() - started, 3),
+            })
+        except Exception as exc:
+            trial_results.append({
+                "trial": trial_id,
+                "design": design,
+                "category": category,
+                "syntax_pass": False,
+                "functional_pass": False,
+                "status": "runner_error",
+                "runtime_seconds": round(time.monotonic() - started, 3),
+                "error": f"{type(exc).__name__}: {exc}",
+            })
+        finally:
+            clean_sim_artifacts()
+            os.chdir(root_dir)
         progress_bar.update(1)
 
     return result_dic
@@ -361,6 +480,14 @@ if trial_ids:
     for trial_id in trial_ids:
         result_dic = test_one_trial(trial_id, result_dic)
     progress_bar.close()
+    trial_order = {trial_id: index for index, trial_id in enumerate(trial_ids)}
+    design_order = {design: index for index, design in enumerate(design_names)}
+    trial_results.sort(
+        key=lambda item: (
+            trial_order.get(item.get("trial"), len(trial_order)),
+            design_order.get(item.get("design"), len(design_order)),
+        )
+    )
 
     n_trials = len(trial_ids)
     total_syntax_success = sum(1 for item in design_names if result_dic[item]["syntax_success"] > 0)
@@ -373,17 +500,22 @@ if trial_ids:
     print(f"Designs with >=1 functional pass: {total_func_success}/{len(design_names)}")
     print("=" * 40)
 
+    pass_metrics = []
     for k in sorted(set(cli_args.pass_k)):
+        if k < 1:
+            raise SystemExit(f"Error: pass@k requires k >= 1 (received {k}).")
         if k > n_trials:
             print(f"\npass@{k}: skipped (need {k} trials, have {n_trials})")
             continue
         print(f"\n--- pass@{k} (n={n_trials}) ---")
-        cal_atk(result_dic, n_trials, k)
+        pass_metrics.append(print_pass_at_k(result_dic, n_trials, k))
 
     csv_path = cli_args.csv or f"{os.path.basename(generation_path)}.csv"
+    csv_path = os.path.abspath(csv_path)
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
     with open(csv_path, "w", newline="", encoding="utf-8") as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=[
-            "design", "syntax_success", "func_success",
+            "design", "category", "syntax_success", "func_success",
             "syntax_pass_rate", "func_pass_rate", "n_trials",
         ])
         writer.writeheader()
@@ -392,14 +524,74 @@ if trial_ids:
             f = result_dic[design]["func_success"]
             writer.writerow({
                 "design": design,
+                "category": design_category(ROOT_DIR, design_paths[design]),
                 "syntax_success": s,
                 "func_success": f,
                 "syntax_pass_rate": f"{s / n_trials:.4f}",
                 "func_pass_rate": f"{f / n_trials:.4f}",
                 "n_trials": n_trials,
             })
-    print(f"\nResults saved to: {os.path.abspath(csv_path)}")
+    print(f"\nResults saved to: {csv_path}")
+
+    generation_manifest = {}
+    manifest_path = os.path.join(generation_path, "run_manifest.json")
+    if os.path.isfile(manifest_path):
+        try:
+            with open(manifest_path, encoding="utf-8") as manifest_file:
+                generation_manifest = json.load(manifest_file)
+        except (OSError, ValueError):
+            generation_manifest = {}
+
+    design_results = []
+    for design in design_names:
+        result = result_dic[design]
+        design_results.append({
+            "design": design,
+            "category": design_category(ROOT_DIR, design_paths[design]),
+            "syntax_success": result["syntax_success"],
+            "functional_success": result["func_success"],
+            "n_trials": n_trials,
+        })
+
+    json_path = os.path.abspath(
+        cli_args.json or f"{os.path.basename(generation_path)}_benchmark_results.json"
+    )
+    os.makedirs(os.path.dirname(json_path), exist_ok=True)
+    report = {
+        "schema_version": 1,
+        "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "benchmark": "RTLLM 2.0 full 72-design repository set",
+        "simulator": "AMD Vivado XSim",
+        "language": LANG["hdl"],
+        "generation_path": generation_path,
+        "generation_manifest": generation_manifest,
+        "trials": trial_ids,
+        "n_trials": n_trials,
+        "n_designs": len(design_names),
+        "resume": {
+            "source": os.path.abspath(cli_args.resume_from) if cli_args.resume_from else None,
+            "reused_trial_results": len(resume_results),
+            "evaluated_trial_results": len(trial_results) - len(resume_results),
+        },
+        "summary": {
+            "designs_with_syntax_pass": total_syntax_success,
+            "designs_with_functional_pass": total_func_success,
+            "total_designs": len(design_names),
+        },
+        "pass_at_k": pass_metrics,
+        "design_results": design_results,
+        "trial_results": trial_results,
+        "sources": {
+            "chatmock": "https://github.com/RayBytes/ChatMock",
+            "gpt_5_6_guidance": "https://developers.openai.com/api/docs/guides/model-guidance?model=gpt-5.6-sol",
+            "rtllm": "https://github.com/hkust-zhiyao/RTLLM",
+        },
+    }
+    with open(json_path, "w", encoding="utf-8") as json_file:
+        json.dump(report, json_file, indent=2)
+    print(f"Detailed report saved to: {json_path}")
 else:
     progress_bar.close()
     print("Error: Missing target directories.")
     print(f"Expected trial folders like t1..t{cli_args.trials} under: {generation_path}")
+    raise SystemExit(1)

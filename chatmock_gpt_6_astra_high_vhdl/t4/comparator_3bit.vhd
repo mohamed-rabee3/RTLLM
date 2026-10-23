@@ -1,0 +1,20 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity comparator_3bit is
+    port (
+        A         : in  std_logic_vector(2 downto 0);
+        B         : in  std_logic_vector(2 downto 0);
+        A_greater : out std_logic;
+        A_equal   : out std_logic;
+        A_less    : out std_logic
+    );
+end entity comparator_3bit;
+
+architecture RTL of comparator_3bit is
+begin
+    A_greater <= '1' when unsigned(A) > unsigned(B) else '0';
+    A_equal   <= '1' when unsigned(A) = unsigned(B) else '0';
+    A_less    <= '1' when unsigned(A) < unsigned(B) else '0';
+end architecture RTL;

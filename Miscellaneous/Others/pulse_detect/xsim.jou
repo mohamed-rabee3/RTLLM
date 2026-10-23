@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Sun Jun 28 22:47:35 2026
-# Process ID         : 4376
+# Start of session at: Tue Oct 13 00:34:22 2026
+# Process ID         : 27604
 # Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/pulse_detect
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
 # Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Others/pulse_detect/xsim.log
@@ -17,9 +17,9 @@
 # CPU Physical cores : 14
 # CPU Logical cores  : 28
 # Host memory        : 17082 MB
-# Swap memory        : 18170 MB
-# Total Virtual      : 35252 MB
-# Available Virtual  : 5591 MB
+# Swap memory        : 22679 MB
+# Total Virtual      : 39761 MB
+# Available Virtual  : 7139 MB
 #-----------------------------------------------------------
 source xsim.dir/rtllm_snap/xsim_script.tcl
 run -all

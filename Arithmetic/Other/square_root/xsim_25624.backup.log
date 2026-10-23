@@ -1,0 +1,42 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Oct 12 21:37:20 2026
+# Process ID         : 25624
+# Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/square_root
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
+# Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/square_root/xsim.log
+# Journal file       : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/square_root\xsim.jou
+# Running On         : DESKTOP-P3DMPUE
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 22631
+# Processor Detail   : Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+# CPU Frequency      : 2394 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 28
+# Host memory        : 17082 MB
+# Swap memory        : 17082 MB
+# Total Virtual      : 34165 MB
+# Available Virtual  : 4502 MB
+#-----------------------------------------------------------
+source xsim.dir/rtllm_snap/xsim_script.tcl
+# xsim {rtllm_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+Starting SQRT testbench...
+PASS: input=63971 sqrt=252
+PASS: input=2315 sqrt=48
+PASS: input=7124 sqrt=84
+PASS: input=12278 sqrt=110
+PASS: input=12741 sqrt=112
+PASS: input=25281 sqrt=159
+PASS: input=63555 sqrt=252
+PASS: input=11176 sqrt=105
+PASS: input=27597 sqrt=166
+PASS: input=5143 sqrt=71
+===========Your Design Passed===========
+$finish called at time : 10 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Arithmetic/Other/square_root/testbench.v" Line 76
+exit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 21:37:22 2026...

@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Sun Jun 28 21:38:43 2026
-# Process ID         : 23376
+# Start of session at: Tue Oct 13 00:33:03 2026
+# Process ID         : 34656
 # Current directory  : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Frequency divider/freq_divbyodd
 # Command line       : xsim.exe -mode tcl -source {xsim.dir/rtllm_snap/xsim_script.tcl}
 # Log file           : D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Frequency divider/freq_divbyodd/xsim.log
@@ -17,9 +17,9 @@
 # CPU Physical cores : 14
 # CPU Logical cores  : 28
 # Host memory        : 17082 MB
-# Swap memory        : 17082 MB
-# Total Virtual      : 34165 MB
-# Available Virtual  : 5587 MB
+# Swap memory        : 22679 MB
+# Total Virtual      : 39761 MB
+# Available Virtual  : 7158 MB
 #-----------------------------------------------------------
 source xsim.dir/rtllm_snap/xsim_script.tcl
 # xsim {rtllm_snap} -autoloadwcfg -runall
@@ -29,16 +29,19 @@ Failed at          1: clk=1, clk_div=0 (expected           1)
 Failed at          2: clk=0, clk_div=0 (expected           1)
 Failed at          3: clk=1, clk_div=0 (expected           1)
 Failed at          4: clk=0, clk_div=0 (expected           1)
-Failed at          5: clk=1, clk_div=0 (expected           1)
+Failed at          6: clk=0, clk_div=1 (expected           0)
 Failed at          7: clk=1, clk_div=1 (expected           0)
 Failed at          8: clk=0, clk_div=1 (expected           0)
 Failed at          9: clk=1, clk_div=1 (expected           0)
-Failed at         10: clk=0, clk_div=1 (expected           0)
+Failed at         11: clk=1, clk_div=0 (expected           1)
+Failed at         12: clk=0, clk_div=0 (expected           1)
 Failed at         13: clk=1, clk_div=0 (expected           1)
 Failed at         14: clk=0, clk_div=0 (expected           1)
-Failed at         15: clk=1, clk_div=0 (expected           1)
+Failed at         16: clk=0, clk_div=1 (expected           0)
+Failed at         17: clk=1, clk_div=1 (expected           0)
+Failed at         18: clk=0, clk_div=1 (expected           0)
 Failed at         19: clk=1, clk_div=1 (expected           0)
-=========== Test completed with          13/20 failures ===========
+=========== Test completed with          16/20 failures ===========
 $finish called at time : 130 ns : File "D:/02-professional/00-Work/verilog_and_vhdl_finetuning/benchmark/RTLLM_DeepSeekV4_PRO/RTLLM/Miscellaneous/Frequency divider/freq_divbyodd/testbench.v" Line 27
 exit
-INFO: [Common 17-206] Exiting xsim at Sun Jun 28 21:38:46 2026...
+INFO: [Common 17-206] Exiting xsim at Tue Oct 13 00:33:05 2026...

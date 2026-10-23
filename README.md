@@ -95,7 +95,131 @@ make clean
 ```
 
 ## 3. Workflow
-  
+
+### Automated pass@1 through pass@5 evaluation
+
+Generate five independent candidates for every design (the default):
+
+```powershell
+python generate_rtl.py --lang verilog
+python generate_rtl.py --lang vhdl
+```
+
+Evaluate the five trial folders and report every pass@k value from 1 through 5:
+
+```powershell
+python auto_run.py --lang verilog
+python auto_run.py --lang vhdl
+```
+
+The evaluator discovers `t1` through `t5`, prints syntax and functional
+pass@1, pass@2, pass@3, pass@4, and pass@5, and saves the per-design counts
+and rates to a CSV file. Use `--gen-dir`, `--trials`, `--pass-k`, or `--csv`
+to override these defaults.
+
+#### GPT-5.6 Sol through ChatMock
+
+[ChatMock](https://github.com/RayBytes/ChatMock) can expose the models available
+to a signed-in Codex/ChatGPT account through a local OpenAI-compatible endpoint.
+ChatMock is a third-party project and is not affiliated with OpenAI.
+
+Install the pinned integration dependencies into the repository virtual environment:
+
+```powershell
+.\venv\Scripts\python.exe -m pip install -r requirements-chatmock.txt
+```
+
+Confirm that Codex is signed in, then run the complete five-trial Verilog workflow:
+
+```powershell
+codex login status
+.\run_gpt56_sol_benchmark.ps1 -Language verilog -Trials 5 -Workers 2
+```
+
+The wrapper starts ChatMock locally, forces model `gpt-5.6-sol`, pins reasoning
+effort to `high`, covers all 72 design directories included in this repository
+for each trial, evaluates them with Vivado XSim, calculates pass@1 through
+pass@5, and creates a formatted Excel workbook under
+`outputs/gpt56_sol_high/`. It is resume-safe: existing non-empty generated RTL
+files are retained, and completed trial/design outcomes can be reused from the
+previous JSON report while newly added designs are evaluated.
+
+#### GLM-5.3-Flash through the opencode zen API
+
+[opencode zen](https://opencode.ai/docs) exposes GLM and other models through an
+OpenAI-compatible endpoint. Put the credentials in `.env`:
+
+```
+OPENCODE_API_KEY=sk-...
+OPENCODE_BASE_URL=https://opencode.ai/zen/go/v1
+```
+
+The Go subscription and the pay-as-you-go Zen balance share one API key but are billed
+separately and live behind different base URLs, so a Go key gets `Insufficient balance`
+from the Zen URL even while the subscription is active. Pick the route with
+`--opencode-plan go` (default) or `--opencode-plan zen`. The Go route also rejects any
+request without an `x-opencode-session` header; `generate_rtl.py` sends a fresh session
+id per candidate.
+
+Then run the complete workflow for both HDLs:
+
+```powershell
+.
+un_glm53_flash_benchmark.ps1 -Language both -Trials 5 -Workers 4 -SynthWorkers 3
+```
+
+The wrapper checks the key and model before it starts, generates five candidates
+per design, evaluates them with Vivado XSim, computes pass@1 through pass@5, runs
+the synthesis PPA sweep, and writes one Excel workbook per language under
+`outputs/glm53_flash/`. Every stage resumes, and `-SkipGenerate`, `-SkipEval`, and
+`-SkipPPA` let you re-run a single stage.
+
+### Stage 3: synthesis PPA (area, power, delay)
+
+`synth_metrics.py` synthesizes each candidate with AMD Vivado and records its area,
+power, and delay. It runs in two modes:
+
+```powershell
+# Human-designed reference RTL - the baseline every model number is compared against.
+python synth_metrics.py --mode golden --out-json outputs/glm53_flash/golden_ppa.json
+
+# The first functionally-passing candidate for each design.
+python synth_metrics.py --mode model --lang verilog `
+    --gen-dir opencode_glm_5_3_flash `
+    --report outputs/glm53_flash/glm53_flash_verilog_all72_benchmark_results.json `
+    --out-json outputs/glm53_flash/glm53_flash_verilog_ppa.json
+```
+
+`--scope` selects which candidates are synthesized: `best-pass` (default, one per
+design), `all-pass`, or `all`. `--part`, `--clock-period`, and `--toggle-rate` control
+the synthesis target.
+
+What each metric means:
+
+| Metric | Definition |
+| --- | --- |
+| **Area** | `Logic Cells` = LUT + FF + CARRY + MUXF + DSP + BRAM + SRL primitives. I/O and clock buffers are excluded so the model/golden ratio is not distorted by pin count. |
+| **Power** | Vivado vectorless estimate at the given default toggle rate. `Dynamic Power` is the discriminating figure: total on-chip power is dominated by device static power at this design scale, and Vivado reports power at 1 mW resolution. |
+| **Delay** | Worst register-to-register path where one exists, otherwise the combinational input-to-output path. `Fmax = 1000 / critical path (ns)`. |
+
+Synthesis runs in-context (I/O buffers inserted) so the power estimate is meaningful,
+and falls back to out-of-context for any design whose pinout will not fit the part.
+Clock and I/O constraints are applied to the synthesized netlist; the flow is identical
+for model and golden RTL, so the ratios are comparable.
+
+Feed the results into the workbook with `--ppa` and `--ppa-golden`:
+
+```powershell
+python create_excel_report.py `
+    outputs/glm53_flash/glm53_flash_verilog_all72_benchmark_results.json `
+    outputs/glm53_flash/RTLLM_GLM-5.3-Flash_verilog_all72_results.xlsx `
+    --ppa outputs/glm53_flash/glm53_flash_verilog_ppa.json `
+    --ppa-golden outputs/glm53_flash/golden_ppa.json
+```
+
+This adds a **PPA** sheet with per-design area, power, and delay next to the golden
+values and the three ratio columns, plus median PPA tiles on the dashboard.
+
 **Fig.1** Complete RTL generation and evaluation workflow using this benchmark, including three straightforward stages.
 
 - In stage 1, users feed each natural language description 𝓛 into their target LLM 𝓕, generating the design RTL 𝒱 = 𝓕(𝓛). If an LLM solution requires additional prompt techniques 𝓟, it will switch the natural language description 𝓛 to actual input prompts 𝓛𝓟, with the output design RTL being 𝒱 = 𝓕(𝓛𝓟). If necessary, additional human engineers' efforts can also be introduced, generating 𝒱 = ℍ(𝓕(𝓛𝓟)).
